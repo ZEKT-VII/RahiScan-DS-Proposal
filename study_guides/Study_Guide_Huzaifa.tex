@@ -1,0 +1,157 @@
+\documentclass[10pt, a4paper]{article}
+\usepackage[a4paper, top=1.3cm, bottom=1.3cm, left=1.35cm, right=1.35cm,
+            headheight=20pt, headsep=7pt, footskip=13pt]{geometry}
+
+\usepackage{amsmath,amssymb}
+\usepackage{fontspec}
+\IfFileExists{fonts/times.ttf}{%
+  \setmainfont{times.ttf}[Path=fonts/, BoldFont=timesbd.ttf,
+                          ItalicFont=timesi.ttf, BoldItalicFont=timesbi.ttf]%
+}{%
+  \setmainfont{TeX Gyre Termes}%
+}
+
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+% IEEE / Nature / Viridis Scientific Palette
+\definecolor{navyblue}{HTML}{1B365D}
+\definecolor{slate}{HTML}{334155}
+\definecolor{softblue}{HTML}{EBF2F7}
+\definecolor{softteal}{HTML}{E6F2F2}
+\definecolor{softred}{HTML}{F9EBEB}
+\definecolor{accentteal}{HTML}{1F7A7A}
+\definecolor{accentblue}{HTML}{2B6CB0}
+\definecolor{accentred}{HTML}{A82020}
+\definecolor{lightgray}{HTML}{F8FAFC}
+\definecolor{bordergray}{HTML}{94A3B8}
+
+\titleformat{\section}{\fontsize{11.5pt}{13.5pt}\selectfont\bfseries\color{navyblue}}
+  {\thesection.}{0.3em}{}[{\color{accentteal}\titlerule[0.7pt]}]
+\titleformat{\subsection}{\fontsize{10pt}{12pt}\selectfont\bfseries\color{accentblue}}{\thesubsection}{0.3em}{}
+
+\titlespacing*{\section}{0pt}{2.5pt}{1.5pt}
+\titlespacing*{\subsection}{0pt}{1.5pt}{1pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.2pt}
+\linespread{0.97}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\fontsize{8pt}{10pt}\selectfont\color{navyblue}\textbf{RahiScan Viva Study Guide} \(\cdot\) \textcolor{accentblue}{Huzaifa (SU92-BSCSM-F25-408)}}
+\fancyhead[R]{\fontsize{8pt}{10pt}\selectfont\color{slate}Intro to Data Science \(\cdot\) Fall 2026}
+\fancyfoot[L]{\fontsize{7.5pt}{9.5pt}\selectfont\color{slate}Superior University Gold Campus \(\cdot\) Group Proposal Defense}
+\fancyfoot[R]{\fontsize{8pt}{10pt}\selectfont\color{navyblue}\textbf{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand{\headrule}{{\color{accentteal}\hrule height 0.6pt}}
+\renewcommand{\footrule}{{\color{bordergray}\hrule height 0.5pt}}
+
+\newtcolorbox{qa}[1][]{enhanced, colback=lightgray, colframe=navyblue, boxrule=0.5pt,
+  arc=2.5pt, left=6pt, right=6pt, top=2.5pt, bottom=2.5pt, fonttitle=\bfseries\footnotesize,
+  coltitle=white, colbacktitle=navyblue, title={#1}, before skip=1.5pt, after skip=1.5pt}
+
+\newtcolorbox{speaking}[1][]{enhanced, colback=softblue, colframe=accentblue, boxrule=0.5pt,
+  arc=2.5pt, left=6pt, right=6pt, top=2.5pt, bottom=2.5pt, fonttitle=\bfseries\footnotesize,
+  coltitle=white, colbacktitle=accentblue, title={#1}, before skip=1.5pt, after skip=1.5pt}
+
+\newtcolorbox{overviewbox}[1][]{enhanced, colback=softteal, colframe=accentteal, boxrule=0.5pt,
+  arc=2.5pt, left=6pt, right=6pt, top=2.5pt, bottom=2.5pt, fonttitle=\bfseries\footnotesize,
+  coltitle=white, colbacktitle=accentteal, title={#1}, before skip=1.5pt, after skip=1.5pt}
+
+\begin{document}
+
+% Top Banner
+\begin{tcolorbox}[enhanced, colback=navyblue, colframe=navyblue, arc=3pt, left=8pt, right=8pt, top=4pt, bottom=4pt]
+  {\fontsize{15pt}{17pt}\selectfont\color{white}\bfseries RahiScan \(\cdot\) Student Viva Study Guide}\\[1.5pt]
+  {\fontsize{10pt}{12pt}\selectfont\color{softteal}\textbf{Member 3: Huzaifa} (Roll No: \texttt{SU92-BSCSM-F25-408})}\\[1pt]
+  {\fontsize{8.5pt}{10.5pt}\selectfont\color{white!85!softblue}\textbf{Assigned Role:} Machine Learning \& Evaluation Lead \(\cdot\) \textbf{Primary Stages:} Model, Evaluate}
+\end{tcolorbox}
+
+\begin{overviewbox}[Quick 30-Second Group Overview (All Members Must Know This)]
+\footnotesize
+\begin{itemize}\setlength{\itemsep}{0.8pt}\setlength{\parskip}{0pt}
+  \item \textbf{What is RahiScan?} A crowd-sourced mobile app proposal for students commuting by \textbf{Qingqi rickshaw} to \textbf{Superior University Gold Campus} (Raiwind Road) and across Lahore corridors.
+  \item \textbf{The Core Problem:} Qingqi rickshaws lack fare meters. Curbside passengers face two unknowns: (1) Is the quoted fare fair or inflated? (2) Is the driver normal or habitually slow?
+  \item \textbf{How It Works:} Snap one photo before boarding. The app reads the \textbf{number plate} and \textbf{driver's face}, checks past logs, and returns a scorecard in \textbf{\(< 2\) seconds}. During the trip, it logs 5-second GPS telemetry.
+  \item \textbf{Status:} Comprehensive research proposal backed by a 4-week simulated pilot (\textbf{1,224 rides}, \textbf{40 drivers}).
+\end{itemize}
+\end{overviewbox}
+
+\begin{tcolorbox}[enhanced, colback=white, colframe=bordergray, boxrule=0.4pt, arc=2.5pt, left=6pt, right=6pt, top=2.5pt, bottom=2.5pt]
+  \footnotesize \textbf{Your Role in Simple Words:} You are the machine learning expert. You explain our two-tier AI architecture (\textbf{Model}) --- how computer vision identifies the driver and how Gradient Boosting predicts fair fares and classifies pace. Then, you lead the defense of our temporal holdout results (\textbf{Evaluate}), explaining the critical insight behind why single trips are noisy while multi-ride medians achieve 100\% accuracy.
+\end{tcolorbox}
+
+\section{What to Say: Step-by-Step Viva Presentation Script}
+
+\subsection{A. Stage 5 --- Model: Two-Tier Machine Learning Pipeline (Report Page 5)}
+\begin{speaking}[Speaking Script: Model Stage]
+\footnotesize
+``Our predictive architecture operates in two coordinated tiers (Figure 7, left):
+\begin{enumerate}\setlength{\itemsep}{0.8pt}\setlength{\parskip}{0pt}
+  \item \textbf{Tier 1 (Biometric \& OCR Identity Fusion):} Curbside images pass through a Convolutional Recurrent Neural Network (CRNN) to extract license text, while a MobileNetV3 backbone generates a compact 128-dimensional facial embedding. In our dataset, 6 vehicles are shared across shifts. For example, a single plate is driven by an honest morning driver (\(\Phi \approx 1.02\)) and an overpriced evening driver (\(\Phi \approx 1.75\)). Identity fusion resolves the true driver with \textbf{99.8\% precision}.
+  \item \textbf{Tier 2 (Behavioural Prediction):} We train two Gradient Boosting models:
+    \begin{itemize}\setlength{\itemsep}{0.6pt}\setlength{\parskip}{0pt}
+      \item \textbf{Fair-Fare Regressor (GBR):} Predicts fair benchmark fare from distance, corridor ID, hour of day, weekend flag, and ambient speed \(v_{\mathrm{base}}\).
+      \item \textbf{Pace Classifier (GBC):} Predicts whether driver pace is Slow, Normal, or Fast.
+    \end{itemize}
+  \item \textbf{The 4-Quadrant Driver Map (Figure 7, right):} Plotting 4-week driver medians confirms four distinct behavioral clusters. Most drivers sit in the `Fair \& Normal Pace' zone, 11 are `Overpriced', 3 are `Habitually Slow', and 2 drivers (\texttt{D27} and \texttt{D36}) are \textbf{both Slow AND Overpriced} --- exactly like our morning commute story!''
+\end{enumerate}
+\end{speaking}
+
+\subsection{B. Stage 6 --- Evaluate: Temporal Holdout \& The `5-Ride Insight' (Report Page 5)}
+\begin{speaking}[Speaking Script: Evaluate Stage]
+\footnotesize
+``To evaluate our models rigorously without data leakage, we trained strictly on \textbf{Weeks 1--3 (808 clean rides)} and evaluated on an unseen \textbf{Week-4 temporal holdout (263 rides across all 40 drivers)} (Table 5, Figure 8):
+\begin{itemize}\setlength{\itemsep}{0.8pt}\setlength{\parskip}{0pt}
+  \item \textbf{Fair-Fare Model Performance:} Our GBR achieved a holdout Mean Absolute Error (MAE) of \textbf{1.8 PKR}, easily beating our target of \(< 5\) PKR, beating distance-only linear regression (2.6 PKR), and heavily outperforming a flat median baseline (22.5 PKR).
+  \item \textbf{Single-Ride Pace vs. Multi-Ride Medians (Table 5):} Single-trip pace reached macro \(F_1 = \mathbf{0.71}\), missing our aggressive \(0.88\) target (marked in red as `Not Met'). This was our most valuable engineering lesson! On a single trip, random street factors (a red light or temporary blockage) introduce noise.
+  \item \textbf{The Solution (100\% Badge Accuracy):} When we aggregate a driver's trips over \textbf{\(\ge 5\) rides using the median}, single-trip noise cancels out completely, and driver Pace Badge accuracy reaches \textbf{100\%} (vs. only 90.0\% if raw speed were used). That empirical finding directly established our 5-ride safeguard in the Deploy stage.''
+\end{itemize}
+\end{speaking}
+
+\newpage
+
+\section{Probable Teacher Questions \& Winning Answers}
+
+\begin{qa}[Q1: Why did you use a temporal holdout (Weeks 1--3 vs. Week 4) instead of standard 5-fold cross-validation?]
+\footnotesize
+\textbf{Answer:} Telemetry and fare data have a chronological time dimension. If you use random k-fold cross-validation, data points from Wednesday morning will be used to predict Tuesday afternoon, creating `temporal leakage' (cheating by using the future to predict the past). A temporal holdout mirrors real-world deployment: you train on past historical rides to predict future upcoming rides.
+\end{qa}
+
+\begin{qa}[Q2: In Table 5, Single-Ride Pace is marked `Not Met' (\(F_1 = 0.71\) vs. 0.88). Does that mean your pace model failed?]
+\footnotesize
+\textbf{Answer:} No, in fact it represents our most insightful data science finding! In an honest evaluation, catching model limitations is crucial. We proved that single rides are inherently stochastic (a fast driver can be trapped behind a stalled truck). However, by discovering this in the Evaluate stage, we engineered the solution: aggregating \(\ge 5\) rides via median lifts driver badge accuracy to \textbf{100\%}.
+\end{qa}
+
+\begin{qa}[Q3: Why choose Gradient Boosting over Deep Neural Networks or Linear Regression for fare prediction?]
+\footnotesize
+\textbf{Answer:} Tabular spatial-temporal features (distance, time bucket, categorical corridor, traffic index) have sharp non-linear interactions. Linear regression cannot capture congestion step-changes (MAE was 2.6 PKR vs 1.8 PKR for GBR). Deep neural networks require millions of parameters and are prone to overfitting on small tabular datasets, whereas Gradient Boosted Trees excel at tabular regression with fast, sub-millisecond inference suitable for mobile backends.
+\end{qa}
+
+\begin{qa}[Q4: Which features were most important in predicting fair fares?]
+\footnotesize
+\textbf{Answer:} Feature importance analysis showed that route distance accounted for \(\approx 67\%\) of the model weight, corridor routing accounted for \(\approx 32\%\), and ambient speed \(v_{\mathrm{base}}\) and hour of day captured peak congestion surcharges.
+\end{qa}
+
+\section{Huzaifa's Key Numbers Cheat-Sheet}
+\footnotesize
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{navyblue}}p{3.8cm}|X|>{\raggedleft\arraybackslash}p{3.0cm}|}
+\hline
+\rowcolor{navyblue}\textcolor{white}{\textbf{Metric}} & \textcolor{white}{\textbf{Context}} & \textcolor{white}{\textbf{Value to State}} \\ \hline
+Training / Holdout Split & Weeks 1--3 Train vs. Week 4 Test & \textbf{808 Train \(\cdot\) 263 Test} \\ \hline
+Fair-Fare Holdout MAE & Gradient Boosting Regressor error & \textbf{1.8 PKR} (Target \(< 5\) PKR) \\ \hline
+Linear Baseline MAE & Distance-only linear benchmark & \textbf{2.6 PKR} \\ \hline
+Flat Rate Baseline MAE & Naive median baseline benchmark & \textbf{22.5 PKR} \\ \hline
+Single-Trip Pace \(F_1\) & Holdout macro \(F_1\) on individual rides & \textbf{0.71} (vs. 0.54 raw speed) \\ \hline
+Driver Badge Accuracy & Aggregated over \(\ge 5\) verified trips & \textbf{100\%} (vs. 90.0\% raw speed) \\ \hline
+Fare Badge Accuracy & Overpriced classification accuracy & \textbf{100\%} across 40 drivers \\ \hline
+\end{tabularx}
+
+\end{document}

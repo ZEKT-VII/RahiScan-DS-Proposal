@@ -1,0 +1,154 @@
+\documentclass[10pt, a4paper]{article}
+\usepackage[a4paper, top=1.3cm, bottom=1.3cm, left=1.35cm, right=1.35cm,
+            headheight=20pt, headsep=7pt, footskip=13pt]{geometry}
+
+\usepackage{amsmath,amssymb}
+\usepackage{fontspec}
+\IfFileExists{fonts/times.ttf}{%
+  \setmainfont{times.ttf}[Path=fonts/, BoldFont=timesbd.ttf,
+                          ItalicFont=timesi.ttf, BoldItalicFont=timesbi.ttf]%
+}{%
+  \setmainfont{TeX Gyre Termes}%
+}
+
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+% IEEE / Nature / Viridis Scientific Palette
+\definecolor{navyblue}{HTML}{1B365D}
+\definecolor{slate}{HTML}{334155}
+\definecolor{softblue}{HTML}{EBF2F7}
+\definecolor{softteal}{HTML}{E6F2F2}
+\definecolor{softred}{HTML}{F9EBEB}
+\definecolor{accentteal}{HTML}{1F7A7A}
+\definecolor{accentblue}{HTML}{2B6CB0}
+\definecolor{accentred}{HTML}{A82020}
+\definecolor{lightgray}{HTML}{F8FAFC}
+\definecolor{bordergray}{HTML}{94A3B8}
+
+\titleformat{\section}{\fontsize{11.5pt}{13.5pt}\selectfont\bfseries\color{navyblue}}
+  {\thesection.}{0.3em}{}[{\color{accentteal}\titlerule[0.7pt]}]
+\titleformat{\subsection}{\fontsize{10pt}{12pt}\selectfont\bfseries\color{accentblue}}{\thesubsection}{0.3em}{}
+
+\titlespacing*{\section}{0pt}{2.5pt}{1.5pt}
+\titlespacing*{\subsection}{0pt}{1.5pt}{1pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.2pt}
+\linespread{0.97}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\fontsize{8pt}{10pt}\selectfont\color{navyblue}\textbf{RahiScan Viva Study Guide} \(\cdot\) \textcolor{accentblue}{Muhammad Khubaib (SU92-BSCSM-F25-300)}}
+\fancyhead[R]{\fontsize{8pt}{10pt}\selectfont\color{slate}Intro to Data Science \(\cdot\) Fall 2026}
+\fancyfoot[L]{\fontsize{7.5pt}{9.5pt}\selectfont\color{slate}Superior University Gold Campus \(\cdot\) Group Proposal Defense}
+\fancyfoot[R]{\fontsize{8pt}{10pt}\selectfont\color{navyblue}\textbf{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand{\headrule}{{\color{accentteal}\hrule height 0.6pt}}
+\renewcommand{\footrule}{{\color{bordergray}\hrule height 0.5pt}}
+
+\newtcolorbox{qa}[1][]{enhanced, colback=lightgray, colframe=navyblue, boxrule=0.5pt,
+  arc=2.5pt, left=6pt, right=6pt, top=2.5pt, bottom=2.5pt, fonttitle=\bfseries\footnotesize,
+  coltitle=white, colbacktitle=navyblue, title={#1}, before skip=1.5pt, after skip=1.5pt}
+
+\newtcolorbox{speaking}[1][]{enhanced, colback=softblue, colframe=accentblue, boxrule=0.5pt,
+  arc=2.5pt, left=6pt, right=6pt, top=2.5pt, bottom=2.5pt, fonttitle=\bfseries\footnotesize,
+  coltitle=white, colbacktitle=accentblue, title={#1}, before skip=1.5pt, after skip=1.5pt}
+
+\newtcolorbox{overviewbox}[1][]{enhanced, colback=softteal, colframe=accentteal, boxrule=0.5pt,
+  arc=2.5pt, left=6pt, right=6pt, top=2.5pt, bottom=2.5pt, fonttitle=\bfseries\footnotesize,
+  coltitle=white, colbacktitle=accentteal, title={#1}, before skip=1.5pt, after skip=1.5pt}
+
+\begin{document}
+
+% Top Banner
+\begin{tcolorbox}[enhanced, colback=navyblue, colframe=navyblue, arc=3pt, left=8pt, right=8pt, top=4pt, bottom=4pt]
+  {\fontsize{15pt}{17pt}\selectfont\color{white}\bfseries RahiScan \(\cdot\) Student Viva Study Guide}\\[1.5pt]
+  {\fontsize{10pt}{12pt}\selectfont\color{softteal}\textbf{Member 2: Muhammad Khubaib} (Roll No: \texttt{SU92-BSCSM-F25-300})}\\[1pt]
+  {\fontsize{8.5pt}{10.5pt}\selectfont\color{white!85!softblue}\textbf{Assigned Role:} Data Engineer \& Pipeline Analyst \(\cdot\) \textbf{Primary Stages:} Clean, Explore}
+\end{tcolorbox}
+
+\begin{overviewbox}[Quick 30-Second Group Overview (All Members Must Know This)]
+\footnotesize
+\begin{itemize}\setlength{\itemsep}{0.8pt}\setlength{\parskip}{0pt}
+  \item \textbf{What is RahiScan?} A crowd-sourced mobile app proposal for students commuting by \textbf{Qingqi rickshaw} to \textbf{Superior University Gold Campus} (Raiwind Road) and across Lahore corridors.
+  \item \textbf{The Core Problem:} Qingqi rickshaws lack fare meters. Curbside passengers face two unknowns: (1) Is the quoted fare fair or inflated? (2) Is the driver normal or habitually slow?
+  \item \textbf{How It Works:} Snap one photo before boarding. The app reads the \textbf{number plate} and \textbf{driver's face}, checks past logs, and returns a scorecard in \textbf{\(< 2\) seconds}. During the trip, it logs 5-second GPS telemetry.
+  \item \textbf{Status:} Comprehensive research proposal backed by a 4-week simulated pilot (\textbf{1,224 rides}, \textbf{40 drivers}).
+\end{itemize}
+\end{overviewbox}
+
+\begin{tcolorbox}[enhanced, colback=white, colframe=bordergray, boxrule=0.4pt, arc=2.5pt, left=6pt, right=6pt, top=2.5pt, bottom=2.5pt]
+  \footnotesize \textbf{Your Role in Simple Words:} You are the technical backbone of data quality. You explain how raw street telemetry was cleaned programmatically (\textbf{Clean}) --- specifically solving the walking-tail problem from our story --- and how you proved statistically that raw velocity is misleading while ambient normalization reveals true driver habits (\textbf{Explore}).
+\end{tcolorbox}
+
+\section{What to Say: Step-by-Step Viva Presentation Script}
+
+\subsection{A. Stage 3 --- Clean: Resolving Street-Level Data Defects (Report Page 4)}
+\begin{speaking}[Speaking Script: Clean Stage]
+\footnotesize
+``When collecting mobile sensor telemetry on chaotic urban roads, raw data cannot be trusted blindly. In our mock pilot, we addressed four concrete defects through our automated Python cleaning pipeline (Figure 5, left):
+\begin{enumerate}\setlength{\itemsep}{0.8pt}\setlength{\parskip}{0pt}
+  \item \textbf{Duplicate Uploads (\(1,224 \to 1,200\)):} Spotty cellular coverage causes phones to resend payloads. Deduplicated by user, corridor, and timestamp gap \(< 10\)s.
+  \item \textbf{Fare Typos \& Missing Values (\(1,200 \to 1,151\)):} Commuters accidentally type extra zeroes (e.g., 800 instead of 80 PKR). Dropped records outside \([0.4, 4.0]\times\) corridor benchmark.
+  \item \textbf{Plate OCR Glare \& Misreads (\(1,151 \to 1,090\)):} Glare and dirt degrade single-modality OCR. Requiring plate confidence \(\ge 0.85\) or face similarity \(\ge 0.70\) lifted driver verification precision from \textbf{83.5\% to 99.8\%}. Dropping 19 underpass GPS dropouts left \textbf{1,071 clean rides}.
+  \item \textbf{The `Walking Tail' Trimmer (Figure 5, right):} Straight from our story! When a student rushes into class and forgets to hit `End Ride', the phone logs walking footsteps. This dragged average speed down by \(2.36\) km/h. Our backward filter identifies speed \(< 6\) km/h and accelerometer step variance \(> 1.0\,\mathrm{m/s^2}\) for \(\ge 60\)s, trimming \textbf{82.4\%} of all 148 walking tails with \textbf{100\% precision} (zero false trims).''
+\end{enumerate}
+\end{speaking}
+
+\subsection{B. Stage 4 --- Explore: Uncovering Hidden Telemetry Patterns (Report Page 4)}
+\begin{speaking}[Speaking Script: Explore Stage]
+\footnotesize
+``Once cleaned, exploratory data analysis proved why evaluating drivers by raw speed is fundamentally unfair:
+\begin{itemize}\setlength{\itemsep}{0.8pt}\setlength{\parskip}{0pt}
+  \item \textbf{The Traffic Heatmap (Figure 6, left):} On inner-city corridors like Mall Road, ambient median speed \(v_{\mathrm{base}}\) drops from 22 km/h at night to 10 km/h during evening rush hour, whereas Raiwind Road to Superior Gold Campus maintains higher speeds. Rush-hour drivers would be falsely penalized without normalization.
+  \item \textbf{Ambient Normalization (\(\Pi\)):} Dividing observed speed by \(v_{\mathrm{base}}\) collapses drivers into traffic-invariant bands (Figure 6, right). Normal drivers stay in the shaded band across all congestion levels.
+  \item \textbf{Bimodal Fare Distribution:} Plotting Fare Ratio \(\Phi\) reveals honest drivers cluster at 1.0 (\(\approx 80\) PKR for 9.6 km), while an overpriced group clusters around 1.7.
+  \item \textbf{Table 4 Walkthrough:} Ride \texttt{TR-0467} (Raiwind to Gold Campus, 16.1 km) moved at 18.2 km/h (\(\Pi = 0.92\)) and charged 125 PKR (\(\Phi = 0.99\), Fair). Ride \texttt{TR-0427} on the same road crawled at 13.0 km/h (\(\Pi = 0.57\), Habitually Slow) and demanded 180 PKR (\(\Phi = 1.50\), Overpriced).''
+\end{itemize}
+\end{speaking}
+
+\newpage
+
+\section{Probable Teacher Questions \& Winning Answers}
+
+\begin{qa}[Q1: How does your algorithm tell the difference between a rickshaw crawling in a traffic jam and a student walking to campus?]
+\footnotesize
+\textbf{Answer:} That is precisely why GPS speed alone fails! Both move at 4--5 km/h. We resolve this by fusing GPS speed with the phone's \textbf{accelerometer (inertial step sensor)}. An idling or crawling Qingqi produces smooth engine vibrations with low vertical acceleration variance (\(< 0.5\,\mathrm{m/s^2}\)), whereas human bipedal walking produces sharp, rhythmic heel-strike spikes (\(> 1.0\,\mathrm{m/s^2}\)). We only trim when slow speed AND high step variance coincide at the tail of a trip.
+\end{qa}
+
+\begin{qa}[Q2: What is \(v_{\mathrm{base}}\) and how is it calculated?]
+\footnotesize
+\textbf{Answer:} \(v_{\mathrm{base}}\) is the crowd-sourced ambient baseline speed. It is computed as the median observed speed of all clean rides logged on that specific corridor, within that two-hour time bucket, on that day type (weekday vs. weekend). It represents the `speed of the road' at that exact time.
+\end{qa}
+
+\begin{qa}[Q3: How many raw records did you start with and how many survived cleaning?]
+\footnotesize
+\textbf{Answer:} We began with \textbf{1,224 raw submissions}. 24 duplicates were removed (1,200), 49 typo/missing fares were dropped (1,151), 61 unverified scans were removed (1,090), and 19 low-coverage underpass trips were excluded, leaving \textbf{1,071 high-integrity rides} (an 87.5\% retention rate).
+\end{qa}
+
+\begin{qa}[Q4: Why not just use Mean speed instead of Median for the corridor baseline?]
+\footnotesize
+\textbf{Answer:} Vehicle speeds on urban Pakistani roads are skewed by occasional severe outliers (accidents, temporary roadblocks, VIP movements). The median is mathematically robust to outliers, ensuring our ambient baseline reflects the typical commuter experience rather than extreme anomalies.
+\end{qa}
+
+\section{Khubaib's Key Numbers Cheat-Sheet}
+\footnotesize
+\begin{tabularx}{\textwidth}{|>{\bfseries\color{navyblue}}p{3.8cm}|X|>{\raggedleft\arraybackslash}p{3.0cm}|}
+\hline
+\rowcolor{navyblue}\textcolor{white}{\textbf{Metric}} & \textcolor{white}{\textbf{Context}} & \textcolor{white}{\textbf{Value to State}} \\ \hline
+Cleaning Funnel & Raw submissions to verified clean trips & \textbf{1,224 \(\to\) 1,071} (87.5\% kept) \\ \hline
+Total GPS Pings & 5-second interval location and motion pings & \textbf{411,829} Pings \\ \hline
+Biometric Fusion Gain & Plate OCR alone vs. Plate + Face fusion & \textbf{83.5\% \(\to\) 99.8\%} Precision \\ \hline
+Walking Tail Filter & Recall across 148 forgotten `End Ride' walks & \textbf{82.4\%} Recall, \textbf{100\%} Precision \\ \hline
+Speed Restoration & Velocity restored to drivers by trimming tails & \textbf{+2.36 km/h} median gain \\ \hline
+Rush Hour Drop & Mall Road night speed vs. evening peak & \textbf{22 km/h \(\to\) 10 km/h} \\ \hline
+\end{tabularx}
+
+\end{document}
