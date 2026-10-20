@@ -25,23 +25,23 @@ PDF_PATH = ROOT / "RahiScan_Proposal.pdf"
 OUT_DOCX = ROOT / "RahiScan_Proposal.docx"
 OUT_REPORT_DOCX = ROOT / "report" / "RahiScan_Proposal.docx"
 
-# Palette
-NAVY = RGBColor(0x14, 0x32, 0x5F)
-SLATE = RGBColor(0x37, 0x47, 0x4F)
-ORANGE = RGBColor(0xD9, 0x5F, 0x02)
-BLUE = RGBColor(0x1B, 0x75, 0xBC)
-GREEN = RGBColor(0x22, 0x8B, 0x57)
-RED = RGBColor(0xC6, 0x28, 0x28)
+# Scientific IEEE / Nature / Viridis Palette
+NAVY = RGBColor(0x1B, 0x36, 0x5D)
+SLATE = RGBColor(0x33, 0x41, 0x55)
+ORANGE = RGBColor(0x1F, 0x7A, 0x7A)
+BLUE = RGBColor(0x2B, 0x6C, 0xB0)
+GREEN = RGBColor(0x1F, 0x7A, 0x7A)
+RED = RGBColor(0xA8, 0x20, 0x20)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
 
-HEX_NAVY = "14325F"
-HEX_SOFTBLUE = "EBF3FC"
-HEX_SOFTGREEN = "E8F5EE"
-HEX_SOFTORANGE = "FEF2E8"
-HEX_SOFTRED = "FBE9E9"
-HEX_LIGHTGRAY = "F5F7FA"
-HEX_GREEN = "228B57"
-HEX_ORANGE = "D95F02"
+HEX_NAVY = "1B365D"
+HEX_SOFTBLUE = "EBF2F7"
+HEX_SOFTGREEN = "E6F2F2"
+HEX_SOFTORANGE = "E6F2F2"
+HEX_SOFTRED = "F9EBEB"
+HEX_LIGHTGRAY = "F8FAFC"
+HEX_GREEN = "1F7A7A"
+HEX_ORANGE = "1F7A7A"
 
 
 def extract_tikz_diagrams_from_pdf():
@@ -49,13 +49,13 @@ def extract_tikz_diagrams_from_pdf():
     doc = pymupdf.open(str(PDF_PATH))
     page2 = doc[1]
     # Figure 2: 7-stage lifecycle
-    clip_lc = pymupdf.Rect(45, 353, 550, 427)
+    clip_lc = pymupdf.Rect(45, 396, 550, 469)
     pix_lc = page2.get_pixmap(dpi=250, clip=clip_lc)
     lc_path = FIG_DIR / "fig_lifecycle_tikz.png"
     pix_lc.save(str(lc_path))
 
     # Figure 3: 3-box system architecture
-    clip_arch = pymupdf.Rect(65, 615, 530, 694)
+    clip_arch = pymupdf.Rect(65, 658, 530, 736)
     pix_arch = page2.get_pixmap(dpi=250, clip=clip_arch)
     arch_path = FIG_DIR / "fig_arch_tikz.png"
     pix_arch.save(str(arch_path))
@@ -154,7 +154,7 @@ def add_section_heading(doc, title_text, space_before=3, space_after=1.5, page_b
     pPr = p._p.get_or_add_pPr()
     pBdr = parse_xml(
         f'<w:pBdr {nsdecls("w")}>'
-        f'<w:bottom w:val="single" w:sz="8" w:space="1" w:color="D95F02"/>'
+        f'<w:bottom w:val="single" w:sz="8" w:space="1" w:color="1F7A7A"/>'
         f"</w:pBdr>"
     )
     pPr.append(pBdr)
@@ -292,13 +292,13 @@ def build_docx():
     hp.paragraph_format.space_before = Pt(0)
     hp.paragraph_format.space_after = Pt(2)
     hp.paragraph_format.line_spacing = 1.0
-    add_run(hp, "RahiScan: Automated Rickshaw Fare & Pace Telemetry, A Data Science Proposal", size=9, bold=True, color=NAVY)
+    add_run(hp, "RahiScan: Automated Qingqi Rickshaw Fare & Pace Telemetry, A Data Science Proposal", size=9, bold=True, color=NAVY)
     add_run(hp, "   |   Introduction to Data Science (Due 21 Oct 2026)\n", size=8.5, color=SLATE)
     add_run(hp, team_line, size=8, color=SLATE)
     hpPr = hp._p.get_or_add_pPr()
     hpPr.append(
         parse_xml(
-            f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="6" w:space="2" w:color="D95F02"/></w:pBdr>'
+            f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="6" w:space="2" w:color="1F7A7A"/></w:pBdr>'
         )
     )
 
@@ -310,7 +310,7 @@ def build_docx():
     fpPr = fp._p.get_or_add_pPr()
     fpPr.append(
         parse_xml(
-            f'<w:pBdr {nsdecls("w")}><w:top w:val="single" w:sz="4" w:space="2" w:color="BEC8D2"/></w:pBdr>'
+            f'<w:pBdr {nsdecls("w")}><w:top w:val="single" w:sz="4" w:space="2" w:color="94A3B8"/></w:pBdr>'
         )
     )
     add_run(fp, team_line + "          Page ", size=8, color=SLATE)
@@ -335,8 +335,8 @@ def build_docx():
     bp0 = bc0.paragraphs[0]
     bp0.paragraph_format.space_after = Pt(2)
     add_run(bp0, "RahiScan\n", size=22, bold=True, color=WHITE)
-    add_run(bp0, "Automated Rickshaw Fare & Pace Telemetry\n", size=13, color=WHITE)
-    add_run(bp0, "A Data Science Lifecycle Case-Study Proposal", size=11, italic=True, color=RGBColor(0xD6, 0xE6, 0xF9))
+    add_run(bp0, "Automated Qingqi Rickshaw Fare & Pace Telemetry\n", size=13, color=WHITE)
+    add_run(bp0, "A Data Science Lifecycle Proposal · Superior University Gold Campus", size=10.5, italic=True, color=RGBColor(0xD6, 0xE6, 0xF9))
 
     bp1 = bc1.paragraphs[0]
     bp1.alignment = WD_ALIGN_PARAGRAPH.RIGHT
@@ -381,7 +381,7 @@ def build_docx():
             "Muhammad Khubaib",
             "SU92-BSCSM-F25-300",
             [
-                "Built the mock Lahore dataset and Python cleaning pipeline, wrote the OCR-face fusion and walking-tail trimming rules, and conducted the exploratory traffic-baseline and fare-ratio analysis. Led the ",
+                "Built the mock Lahore Qingqi dataset and Python cleaning pipeline, wrote the OCR-face fusion and walking-tail trimming rules, and conducted the exploratory traffic-baseline and fare-ratio analysis. Led the ",
                 ("Clean", True),
                 " and ",
                 ("Explore", True),
@@ -446,7 +446,7 @@ def build_docx():
     set_table_borders(t_del)
     deliv_rows = [
         ("This report (PDF & DOCX, 6 pp.)", "Case-study story, 7-stage lifecycle extraction, mock pilot findings and deployment proposal."),
-        ("Mock dataset", "1,224 ride submissions, 1,200 scans and 364,488 GPS pings from 40 simulated drivers (data/)."),
+        ("Mock dataset", "1,224 Qingqi ride submissions, 1,200 scans and 411,829 GPS pings from 40 simulated drivers (data/)."),
         ("Reproducible code", "Data generator, cleaning and modelling pipeline, and figure scripts in Python (src/)."),
         ("GitHub Repository", "https://github.com/ZEKT-VII/RahiScan-DS-Proposal"),
     ]
@@ -483,18 +483,32 @@ def build_docx():
 
     sp1 = sc0.paragraphs[0]
     sp1.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    sp1.paragraph_format.space_after = Pt(3)
-    sp1.paragraph_format.line_spacing = 1.0
+    sp1.paragraph_format.space_after = Pt(2)
+    sp1.paragraph_format.line_spacing = 0.98
+    add_run(sp1, "It is 7:40 on a Monday in Johar Town and we have an 8:30 lab at ", size=12)
+    add_run(sp1, "Superior University Gold Campus", size=12, bold=True)
+    add_run(sp1, " on Raiwind Road (9.6 km). The first ", size=12)
+    add_run(sp1, "Qingqi rickshaw", size=12, bold=True)
     add_run(
         sp1,
-        "It is 7:40 on a Monday in Johar Town and we have an 8:30 lab on campus. The first auto-rickshaw quotes 600 rupees; we bargain down to 520 and board. The driver then crawls along the left lane, stops for tea at a roadside dhaba “for one minute”, and delivers us twelve minutes late. The next morning a different driver covers the same route for 440 rupees in twenty minutes despite heavier traffic.\n"
-        "Lahore's rickshaws lack meters, leaving commuters unable to tell at the curb whether a quote is inflated or whether a driver is habitually slow. We propose ",
+        " quotes 140 rupees; we bargain down to 110 and board. The driver then crawls along the left lane, stops for tea at a roadside dhaba “for one minute”, and delivers us twelve minutes late. The next morning a different Qingqi driver covers the same 9.6 km route to Superior University Gold Campus for the standard ",
+        size=12,
+    )
+    add_run(sp1, "80 rupees", size=12, bold=True)
+    add_run(sp1, " in twenty minutes despite heavier traffic (similarly, the 16.1 km ride from ", size=12)
+    add_run(sp1, "Raiwind", size=12, bold=True)
+    add_run(sp1, " to Gold Campus costs about ", size=12)
+    add_run(sp1, "120 rupees", size=12, bold=True)
+    add_run(
+        sp1,
+        ", and inner-city Lahore routes average 40–85 rupees).\n"
+        "Lahore's Qingqi motorcycle-rickshaws lack meters, leaving commuters unable to tell at the curb whether a quote is inflated or whether a driver is habitually slow. We propose ",
         size=12,
     )
     add_run(sp1, "RahiScan", size=12, bold=True)
     add_run(
         sp1,
-        ", a crowd-sourced mobile app where passengers photograph a rickshaw before boarding (Figure 1), fusing number-plate OCR with driver facial recognition (as vehicles are shared across shifts), enter the quoted fare, and log 5-second GPS pings until arrival.",
+        ", a crowd-sourced mobile app where passengers photograph a Qingqi rickshaw before boarding (Figure 1), fusing number-plate OCR with driver facial recognition, enter the quoted fare, and log 5-second GPS pings until arrival.",
         size=12,
     )
 
@@ -506,7 +520,7 @@ def build_docx():
     sp2_cap.paragraph_format.space_before = Pt(1)
     sp2_cap.paragraph_format.space_after = Pt(0)
     add_run(sp2_cap, "Figure 1: ", size=8.5, bold=True, color=NAVY)
-    add_run(sp2_cap, "Curbside AR scan reading the plate (orange) and driver face (blue).", size=8.5, color=SLATE)
+    add_run(sp2_cap, "Curbside AR scan of a Pakistani Qingqi rickshaw reading the plate (teal) and driver face (steel-blue).", size=8.5, color=SLATE)
 
     add_section_heading(doc, "2. Extracting the Data Science Lifecycle from the Story")
 
@@ -526,10 +540,10 @@ def build_docx():
     format_table_cell(t_ext.rows[0].cells[2], "Data science problem it raises and proposed solution", size=9, bold=True, color=WHITE, bg=HEX_NAVY)
     ext_rows = [
         ("Define", "“We could not tell the two drivers apart.”", "Replace subjective complaints with two traffic- and route-normalised ratios: Pace Index Π and Fare Ratio Φ."),
-        ("Collect", "“Every bad ride leaves data nobody records.”", "Capture plate+face scans, quoted fares, 5-s GPS/accelerometer traces, and ride-hailing fare benchmarks."),
+        ("Collect", "“Every bad ride leaves data nobody records.”", "Capture Qingqi plate+face scans, quoted fares, 5-s GPS/accelerometer traces, and corridor fare benchmarks."),
         ("Clean", "“We walked into the lab twelve minutes late.”", "Trim pedestrian walking tails when users forget End Ride; fuse OCR and face embeddings; drop duplicates/typos."),
         ("Explore", "“...even though the traffic was worse.”", "Separate road congestion from driver habit by comparing trip speed against corridor-hour median speed v_base."),
-        ("Model", "“A different driver took the same route.”", "Resolve shared-rickshaw drivers via biometric fusion and predict fair fares and pace classes with gradient boosting."),
+        ("Model", "“A different driver took the same route.”", "Resolve shared-Qingqi drivers via biometric fusion and predict fair fares and pace classes with gradient boosting."),
         ("Evaluate", "“Stuck in traffic is not a slow driver.”", "Test on an unseen Week-4 holdout to measure false flags on single rides versus multi-ride driver profiles."),
         ("Deploy", "“We had to decide at the curb, in seconds.”", "Return a colour-coded scorecard in under 2 seconds, gated behind a 5-ride minimum and monthly fare retraining."),
     ]
@@ -546,7 +560,7 @@ def build_docx():
     p_ar.paragraph_format.space_before = Pt(2)
     p_ar.paragraph_format.space_after = Pt(1)
     p_ar.add_run().add_picture(str(arch_path), width=Inches(6.2))
-    add_caption(doc, "Figure 3: ", "End-to-end RahiScan architecture illustrated with simulated driver D27 from our pilot dataset.")
+    add_caption(doc, "Figure 3: ", "End-to-end RahiScan architecture illustrated with simulated Qingqi driver D27 on the 9.6 km Superior Gold Campus route.")
 
     # =========================================================================
     # PAGE 3: STAGE 1 (DEFINE) & STAGE 2 (COLLECT)
@@ -556,19 +570,19 @@ def build_docx():
     add_body_p(
         doc,
         [
-            "To replace subjective complaints with testable metrics, we define two dimensionless ratios for every ride i, where 1.0 represents typical behaviour on that corridor and hour, and fix badge thresholds prior to data collection (Table 2):"
+            "To replace subjective complaints with testable metrics, we define two dimensionless ratios for every Qingqi ride i, where 1.0 represents typical behaviour on that corridor and hour, and fix badge thresholds prior to data collection (Table 2):"
         ],
     )
 
     t_eq = doc.add_table(rows=1, cols=2)
     t_eq.alignment = WD_TABLE_ALIGNMENT.CENTER
-    set_table_borders(t_eq, color="14325F", sz="6")
+    set_table_borders(t_eq, color="1B365D", sz="6")
     format_table_cell(
         t_eq.rows[0].cells[0],
         [
             ("Driving Pace Index (Π_i)\n", True, False, NAVY, 10),
             ("Π_i = v_obs,i / v_base,i = (d_i / t_i) / median(v_obs on corridor, hour)\n", True, False, SLATE, 9),
-            ("Π = 0.60 means moving 40% slower than peer rickshaws on the same road and hour.", False, False, SLATE, 8.5),
+            ("Π = 0.60 means moving 40% slower than peer Qingqi rickshaws on the same road and hour.", False, False, SLATE, 8.5),
         ],
         bg=HEX_LIGHTGRAY,
         pad=14,
@@ -578,7 +592,7 @@ def build_docx():
         [
             ("Fare Fairness Ratio (Φ_i)\n", True, False, ORANGE, 10),
             ("Φ_i = Fare_quoted,i / Fare_fair,i\n", True, False, SLATE, 9),
-            ("Fare_fair is predicted from distance, corridor, and congestion using ride-hailing benchmarks.", False, False, SLATE, 8.5),
+            ("Fare_fair is predicted from distance, corridor, and congestion (≈ 80 PKR for 9.6 km; ≈ 120 PKR Raiwind to Gold Campus).", False, False, SLATE, 8.5),
         ],
         bg=HEX_LIGHTGRAY,
         pad=14,
@@ -593,7 +607,7 @@ def build_docx():
     def_rows = [
         ("Habitually Slow", "Π < 0.75", "Expect trip duration at least 25% longer than ambient traffic requires.", HEX_SOFTRED, RED),
         ("Normal / Fast Pace", "0.75 ≤ Π ≤ 1.15 / Π > 1.15", "Moves with ambient traffic (≤ 1.15) or noticeably brisker (> 1.15).", HEX_SOFTGREEN, GREEN),
-        ("Overpriced", "Φ > 1.25", "Quotes more than 25% above fair benchmark; passenger should negotiate or skip.", HEX_SOFTORANGE, ORANGE),
+        ("Overpriced", "Φ > 1.25", "Quotes more than 25% above fair benchmark (e.g. > 100 PKR on an 80 PKR route); negotiate or skip.", HEX_SOFTORANGE, ORANGE),
     ]
     for i, (b_lbl, rule, guide, bg_hex, col_rgb) in enumerate(def_rows, start=1):
         format_table_cell(t_def.rows[i].cells[0], b_lbl, size=8.5, bold=True, color=col_rgb, bg=bg_hex, pad=14)
@@ -605,7 +619,9 @@ def build_docx():
     add_body_p(
         doc,
         [
-            "Since no public dataset links Lahore rickshaw drivers to speed and pricing, we designed a four-week pilot with 85 student volunteers across eight campus corridors. To validate our pipeline beforehand, we generated a synthetic pilot dataset (SEED = 2026) spanning 40 drivers across 34 rickshaws (six shift-shared), 1,200 scans, 1,224 trip logs, and 364,488 5-second GPS pings (Table 3, Figure 4). For privacy, only 128-D face embeddings are stored and raw photos are discarded immediately."
+            "Since no public dataset links Lahore Qingqi rickshaw drivers to speed and pricing, we designed a four-week pilot with 85 student volunteers commuting to ",
+            ("Superior University Gold Campus", True),
+            " (from Raiwind, Johar Town, Thokar Niaz Baig, and Township) and across inner-city Lahore corridors. To validate our pipeline beforehand, we generated a synthetic pilot dataset (SEED = 2026) spanning 40 drivers across 34 Qingqi rickshaws (six shift-shared), 1,200 scans, 1,224 trip logs, and 411,829 5-second GPS pings (Table 3, Figure 4). For privacy, only 128-D face embeddings are stored and raw photos are discarded immediately.",
         ],
     )
 
@@ -618,8 +634,8 @@ def build_docx():
     col_rows = [
         ("Curb scan", "Plate OCR text & confidence, 128-D face cosine match, low-light flag", "Verify driver identity", "1,200"),
         ("Ride record", "User ID, corridor, timestamps, quoted fare (PKR), End Ride flag", "Fare & duration log", "1,224"),
-        ("GPS pings", "Lat, lon, 5-s timestamp, speed, accelerometer step variance", "Trajectory & tail trim", "364,488"),
-        ("Fare benchmark", "Contemporaneous inDrive/Careem/Bykea rickshaw quote (PKR)", "Ground-truth fair fare", "1,200"),
+        ("GPS pings", "Lat, lon, 5-s timestamp, speed, accelerometer step variance", "Trajectory & tail trim", "411,829"),
+        ("Fare benchmark", "Reference Qingqi corridor fare (PKR; ≈ 80 PKR for 9.6 km)", "Ground-truth fair fare", "1,200"),
         ("Driver gallery", "Registered plate-to-driver mapping and shift schedule (34 plates)", "Resolve shared vehicles", "40"),
     ]
     for i, (s_name, flds, purp, nrows) in enumerate(col_rows, start=1):
@@ -636,7 +652,7 @@ def build_docx():
     add_caption(
         doc,
         "Figure 4: ",
-        "Left: simulated GPS traces across eight Lahore corridors, with red tails showing forgotten End Ride walks. Right: ride volume peaks during the 07:00–09:00 and 16:00–19:00 rush hours.",
+        "Left: simulated GPS traces across Raiwind, Superior Gold Campus, and inner-city Lahore corridors, with red tails showing forgotten End Ride walks. Right: ride volume peaks during the 07:00–09:00 and 16:00–19:00 rush hours.",
     )
 
     # =========================================================================
@@ -651,61 +667,63 @@ def build_docx():
             ("duplicate uploads", True),
             " from cellular retries within 10 seconds are dropped (1,224 → 1,200). Second, ",
             ("missing or typo fares", True),
-            " (e.g. 5,200 instead of 520 PKR) outside [0.4, 4.0]× benchmark are removed (1,200 → 1,147). Third, ",
+            " (e.g. 800 instead of 80 PKR) outside [0.4, 4.0]× benchmark are removed (1,200 → 1,151). Third, ",
             ("night glare and dented plates", True),
-            " degrade OCR; requiring plate confidence ≥ 0.85 or face similarity ≥ 0.70 (and using the face to disambiguate shared plates) boosts identity precision from 85.7% to ",
+            " degrade OCR; requiring plate confidence ≥ 0.85 or face similarity ≥ 0.70 (and using the face to disambiguate shared plates) boosts identity precision from 83.5% to ",
             ("99.8%", True),
-            " (1,147 → 1,075), leaving ",
-            ("1,058 verified rides", True),
-            " after dropping 17 underpass traces with < 75% GPS coverage (Figure 5, left). Fourth, when a student forgets to tap End Ride, our backward change-point filter trims trailing pings with speed < 6 km/h and step variance > 1.2 m/s² for ≥ 60 s, catching ",
-            ("88.5%", True),
-            " of all 130 walking tails with zero false trims and restoring 3.14 km/h to affected drivers (Figure 5, right).",
+            " (1,151 → 1,090), leaving ",
+            ("1,071 verified rides", True),
+            " after dropping 19 underpass traces with < 75% GPS coverage (Figure 5, left). Fourth, when a student forgets to tap End Ride, our backward change-point filter trims trailing pings with speed < 6 km/h and step variance > 1.0 m/s² for ≥ 60 s, catching ",
+            ("82.4%", True),
+            " of all 148 walking tails at 100% precision and restoring 2.36 km/h to affected drivers (Figure 5, right).",
         ],
     )
 
     t_f5 = doc.add_table(rows=1, cols=2)
     t_f5.alignment = WD_TABLE_ALIGNMENT.CENTER
     remove_table_borders(t_f5)
-    t_f5.rows[0].cells[0].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_cleaning.png"), width=Inches(3.05))
-    t_f5.rows[0].cells[1].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_gps_trim.png"), width=Inches(3.05))
+    t_f5.rows[0].cells[0].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_cleaning.png"), width=Inches(2.85))
+    t_f5.rows[0].cells[1].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_gps_trim.png"), width=Inches(2.85))
     add_caption(
         doc,
         "Figure 5: ",
-        "Left: multi-stage cleaning funnel (1,224 raw to 1,058 clean rides) and biometric fusion gain. Right: change-point walking-tail trim on ride TR-1119, preventing a 28% artificial speed penalty.",
+        "Left: multi-stage cleaning funnel (1,224 raw to 1,071 clean rides) and biometric fusion gain. Right: change-point walking-tail trim on a student commute, preventing an artificial speed penalty.",
     )
 
-    add_section_heading(doc, "6. Explore: What Patterns Appear?")
+    add_section_heading(doc, "6. Explore: What Patterns Appear?", space_before=2, space_after=1)
     add_stage_banner(doc, 4, "EXPLORE", "What patterns appear?", HEX_SOFTORANGE, ORANGE)
     add_body_p(
         doc,
         [
-            "Exploratory analysis confirms why raw speed is unfair: on Mall Road, ambient median speed v_base drops from 22 km/h at night to 5 km/h at 16:00 (Figure 6, left). Normalising by v_base isolates driver pace across all traffic regimes, while the Fare Ratio Φ separates fair quotes (≈ 1.0) from an overpriced tail near 1.7 (Figure 6, right; Table 4)."
+            "Exploratory analysis confirms why raw speed is unfair: on inner-city corridors such as Mall Road, ambient median speed v_base drops from 22 km/h at night to 10 km/h during rush hour, whereas Raiwind Road to Superior Gold Campus flows faster (Figure 6, left). Normalising by v_base isolates driver pace across all traffic regimes, while the Fare Ratio Φ separates fair Qingqi quotes (≈ 80 PKR for 9.6 km, ≈ 120 PKR from Raiwind to Gold Campus, Φ ≈ 1.0) from an overpriced tail near Φ ≈ 1.7 (Figure 6, right; Table 4)."
         ],
+        space_after=2,
+        line_spacing=0.98,
     )
 
     t_f6 = doc.add_table(rows=1, cols=2)
     t_f6.alignment = WD_TABLE_ALIGNMENT.CENTER
     remove_table_borders(t_f6)
-    t_f6.rows[0].cells[0].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_heatmap.png"), width=Inches(3.0))
-    t_f6.rows[0].cells[1].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_explore.png"), width=Inches(3.1))
+    t_f6.rows[0].cells[0].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_heatmap.png"), width=Inches(2.80))
+    t_f6.rows[0].cells[1].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_explore.png"), width=Inches(2.90))
     add_caption(
         doc,
         "Figure 6: ",
         "Left: weekday ambient speed v_base by corridor and hour. Right: observed vs. baseline speed showing the Normal Pace band, and the bimodal distribution of Fare Ratio Φ.",
     )
 
-    add_caption(doc, "Table 4: ", "Sample of cleaned, feature-engineered rides (data/processed/trips_clean.csv) illustrating independent pace and fare scores.")
+    add_caption(doc, "Table 4: ", "Sample of cleaned, feature-engineered Qingqi rides (data/processed/trips_clean.csv) illustrating independent pace and fare scores.")
     t_smp = doc.add_table(rows=5, cols=10)
     t_smp.alignment = WD_TABLE_ALIGNMENT.CENTER
     set_table_borders(t_smp)
     smp_hdrs = ["Ride", "Plate # Face", "Corridor", "Hr", "km", "v_obs", "v_base", "Π", "Quoted/Fair", "Φ"]
     for j, h in enumerate(smp_hdrs):
-        format_table_cell(t_smp.rows[0].cells[j], h, size=8.5, bold=True, color=WHITE, bg=HEX_NAVY, align=WD_ALIGN_PARAGRAPH.CENTER, pad=12)
+        format_table_cell(t_smp.rows[0].cells[j], h, size=8.5, bold=True, color=WHITE, bg=HEX_NAVY, align=WD_ALIGN_PARAGRAPH.CENTER, pad=6)
     smp_rows = [
-        ("TR-0466", "LEP-4334#F04", "Thokar – Campus", "14", "8.5", "25.6", "24.6", "1.04", "460 / 458", "1.00"),
-        ("TR-0827", "LEP-4877#F22", "Kalma – Gulberg", "17", "2.1", "7.3", "8.0", "0.91", "180 / 169", "1.07"),
-        ("TR-0597", "LEP-2758#F27", "Barkat – Iqbal Town", "8", "3.9", "6.1", "11.6", "0.53", "370 / 254", "1.46"),
-        ("TR-0266", "LES-8870#F32", "Township – Campus", "7", "10.8", "17.4", "18.2", "0.96", "1070 / 528", "2.03"),
+        ("TR-0794", "LES-8113#F06", "Johar Town – Gold Campus", "14", "10.0", "22.9", "22.4", "1.02", "80 / 79", "1.02"),
+        ("TR-0467", "LEA-6967#F23", "Raiwind – Gold Campus", "8", "16.1", "18.2", "19.7", "0.92", "125 / 126", "0.99"),
+        ("TR-0427", "LEP-2758#F27", "Raiwind – Gold Campus", "17", "16.2", "13.0", "23.0", "0.57", "180 / 120", "1.50"),
+        ("TR-1092", "LEP-3036#F20", "Thokar – Gold Campus", "11", "8.7", "25.4", "25.4", "1.00", "125 / 71", "1.77"),
     ]
     for i, rvals in enumerate(smp_rows, start=1):
         for j, val in enumerate(rvals):
@@ -716,7 +734,7 @@ def build_docx():
                 bold=(j in (0, 7, 9)),
                 bg=HEX_SOFTBLUE if j == 0 else None,
                 align=WD_ALIGN_PARAGRAPH.LEFT if j == 2 else WD_ALIGN_PARAGRAPH.CENTER,
-                pad=12,
+                pad=6,
             )
 
     # =========================================================================
@@ -729,21 +747,23 @@ def build_docx():
         [
             "Our modelling architecture operates in two tiers (Figure 7, left). ",
             ("Tier 1 (Biometric + OCR Identity Fusion)", True),
-            " pairs a CRNN plate reader with a MobileNetV3 128-D face encoder. Because six rickshaws in our pilot are shared across shifts, plate LES-8113 is driven by a fair morning driver (Φ = 1.05) and an overpriced evening driver (Φ = 1.77) who would otherwise be blurred into one misleading profile. ",
+            " pairs a CRNN plate reader with a MobileNetV3 128-D face encoder. Because six Qingqi rickshaws in our pilot are shared across shifts, a single plate is often driven by a fair morning driver (Φ ≈ 1.02) and an overpriced evening driver (Φ ≈ 1.75) who would otherwise be blurred into one misleading profile. ",
             ("Tier 2 (Behavioural Prediction)", True),
             " trains a Gradient-Boosted Regressor (GBR) to predict Fare_fair from distance, corridor, hour, weekend indicator, and ambient speed v_base, plus a multiclass GBR pace classifier. Plotting 4-week driver medians reveals four behavioural clusters and confirms that pace and pricing require separate badges (Figure 7, right).",
         ],
+        space_after=2,
+        line_spacing=0.98,
     )
 
     t_f7 = doc.add_table(rows=1, cols=2)
     t_f7.alignment = WD_TABLE_ALIGNMENT.CENTER
     remove_table_borders(t_f7)
-    t_f7.rows[0].cells[0].paragraphs[0].add_run().add_picture(str(FIG_DIR / "data_journey.jpg"), width=Inches(2.55))
-    t_f7.rows[0].cells[1].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_quadrant.png"), width=Inches(2.70))
+    t_f7.rows[0].cells[0].paragraphs[0].add_run().add_picture(str(FIG_DIR / "data_journey.jpg"), width=Inches(2.35))
+    t_f7.rows[0].cells[1].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_quadrant.png"), width=Inches(2.50))
     add_caption(
         doc,
         "Figure 7: ",
-        "Left: single-scan data journey from phone capture to cloud inference and scorecard. Right: 40 driver profiles across the Pace Index (Π) vs. Fare Ratio (Φ) quadrant.",
+        "Left: single-scan data journey from Qingqi phone capture to cloud inference and scorecard. Right: 40 driver profiles across the Pace Index (Π) vs. Fare Ratio (Φ) quadrant.",
     )
 
     add_section_heading(doc, "8. Evaluate: How Reliable Is the Result?", space_before=2, space_after=1)
@@ -751,48 +771,48 @@ def build_docx():
     add_body_p(
         doc,
         [
-            "To prevent temporal leakage, models are trained strictly on Weeks 1–3 (778 clean rides) and evaluated on the unseen Week-4 holdout (280 rides across all 40 drivers; Table 5). Fair-fare GBR achieves a Mean Absolute Error of ",
-            ("10.9 PKR", True),
-            " (beating linear regression at 12.1 PKR and a flat per-km rate at 117.6 PKR). Single-ride pace reaches macro ",
-            ("F1 = 0.67", True),
-            " (below the 0.88 target) because individual trips suffer from one-off traffic luck, whereas aggregating over ≥ 5 rides eliminates single-trip noise and lifts driver-level Pace Badge accuracy to ",
+            "To prevent temporal leakage, models are trained strictly on Weeks 1–3 (808 clean rides) and evaluated on the unseen Week-4 holdout (263 rides across all 40 drivers; Table 5). Fair-fare GBR achieves a Mean Absolute Error of ",
+            ("1.8 PKR", True),
+            " against a < 5 PKR target (beating distance-only linear regression at 2.6 PKR and a flat median rate at 22.5 PKR). Single-ride pace reaches macro ",
+            ("F1 = 0.71", True),
+            " (below the 0.88 target, vs. 0.54 for raw speed) because individual trips suffer from one-off traffic luck, whereas aggregating over ≥ 5 rides eliminates single-trip noise and lifts driver-level Pace Badge accuracy to ",
             ("100%", True),
-            " (versus 87.5% using raw speed; Figure 8).",
+            " (versus 90.0% using raw speed; Figure 8).",
         ],
         space_after=2,
         line_spacing=0.98,
     )
 
-    add_caption(doc, "Table 5: ", "Holdout evaluation summary on unseen Week-4 trips (n = 280 rides, 40 drivers).")
+    add_caption(doc, "Table 5: ", "Holdout evaluation summary on unseen Week-4 trips (n = 263 rides, 40 drivers).")
     t_ev = doc.add_table(rows=7, cols=5)
     t_ev.alignment = WD_TABLE_ALIGNMENT.CENTER
     set_table_borders(t_ev)
     for j, h in enumerate(["Module", "Metric and baseline comparison", "Target", "Mock result", "Status"]):
-        format_table_cell(t_ev.rows[0].cells[j], h, size=8.5, bold=True, color=WHITE, bg=HEX_NAVY, pad=6)
+        format_table_cell(t_ev.rows[0].cells[j], h, size=8.5, bold=True, color=WHITE, bg=HEX_NAVY, pad=5)
     ev_rows = [
-        ("Driver identity", "Precision of verified IDs (plate-only baseline: 85.7%)", "≥ 93%", "99.8%", "Met", HEX_SOFTGREEN, GREEN),
-        ("Walking-tail filter", "Recall on 130 forgotten End Ride walking tails (100% precision)", "≥ 0.85", "0.88", "Met", HEX_SOFTGREEN, GREEN),
-        ("Fair-fare regressor", "Holdout MAE (linear: 12.1 PKR; flat rate: 117.6 PKR)", "< 15 PKR", "10.9 PKR", "Met", HEX_SOFTGREEN, GREEN),
-        ("Pace (single ride)", "Macro F1 on individual trips (raw speed baseline: 0.45)", "≥ 0.88", "0.67", "Not met", HEX_SOFTRED, RED),
-        ("Pace (driver badge)", "Badge accuracy over ≥ 5 rides (raw speed baseline: 87.5%)", "≥ 90%", "100%", "Met", HEX_SOFTGREEN, GREEN),
+        ("Driver identity", "Precision of verified IDs (plate-only baseline: 83.5%)", "≥ 93%", "99.8%", "Met", HEX_SOFTGREEN, GREEN),
+        ("Walking-tail filter", "Recall on 148 forgotten End Ride walking tails (100% precision)", "≥ 0.80", "0.82", "Met", HEX_SOFTGREEN, GREEN),
+        ("Fair-fare regressor", "Holdout MAE (linear: 2.6 PKR; flat rate: 22.5 PKR)", "< 5 PKR", "1.8 PKR", "Met", HEX_SOFTGREEN, GREEN),
+        ("Pace (single ride)", "Macro F1 on individual trips (raw speed baseline: 0.54)", "≥ 0.88", "0.71", "Not met", HEX_SOFTRED, RED),
+        ("Pace (driver badge)", "Badge accuracy over ≥ 5 rides (raw speed baseline: 90.0%)", "≥ 90%", "100%", "Met", HEX_SOFTGREEN, GREEN),
         ("Fare badge", "Overpriced flag accuracy over ≥ 5 rides", "≥ 90%", "100%", "Met", HEX_SOFTGREEN, GREEN),
     ]
     for i, (mod, met, tgt, res, st, st_bg, st_col) in enumerate(ev_rows, start=1):
-        format_table_cell(t_ev.rows[i].cells[0], mod, size=8.5, bold=True, color=NAVY, bg=HEX_SOFTBLUE, pad=6)
-        format_table_cell(t_ev.rows[i].cells[1], met, size=8.5, pad=6)
-        format_table_cell(t_ev.rows[i].cells[2], tgt, size=8.5, align=WD_ALIGN_PARAGRAPH.CENTER, pad=6)
-        format_table_cell(t_ev.rows[i].cells[3], res, size=8.5, bold=True, align=WD_ALIGN_PARAGRAPH.CENTER, pad=6)
-        format_table_cell(t_ev.rows[i].cells[4], st, size=8.5, bold=True, color=st_col, bg=st_bg, align=WD_ALIGN_PARAGRAPH.CENTER, pad=6)
+        format_table_cell(t_ev.rows[i].cells[0], mod, size=8.5, bold=True, color=NAVY, bg=HEX_SOFTBLUE, pad=5)
+        format_table_cell(t_ev.rows[i].cells[1], met, size=8.5, pad=5)
+        format_table_cell(t_ev.rows[i].cells[2], tgt, size=8.5, align=WD_ALIGN_PARAGRAPH.CENTER, pad=5)
+        format_table_cell(t_ev.rows[i].cells[3], res, size=8.5, bold=True, align=WD_ALIGN_PARAGRAPH.CENTER, pad=5)
+        format_table_cell(t_ev.rows[i].cells[4], st, size=8.5, bold=True, color=st_col, bg=st_bg, align=WD_ALIGN_PARAGRAPH.CENTER, pad=5)
 
     t_f8 = doc.add_table(rows=1, cols=2)
     t_f8.alignment = WD_TABLE_ALIGNMENT.CENTER
     remove_table_borders(t_f8)
-    t_f8.rows[0].cells[0].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_evaluate.png"), width=Inches(2.90))
-    t_f8.rows[0].cells[1].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_normalisation.png"), width=Inches(2.50))
+    t_f8.rows[0].cells[0].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_evaluate.png"), width=Inches(2.70))
+    t_f8.rows[0].cells[1].paragraphs[0].add_run().add_picture(str(FIG_DIR / "fig_normalisation.png"), width=Inches(2.35))
     add_caption(
         doc,
         "Figure 8: ",
-        "Left: Week-4 holdout fair-fare predictions, log-scale MAE comparison, and single-ride confusion matrix. Right: traffic normalisation (Π) substantially outperforms raw speed.",
+        "Left: Week-4 holdout fair-fare predictions, log-scale MAE comparison (< 5 PKR target), and single-ride confusion matrix. Right: traffic normalisation (Π) outperforms raw speed.",
     )
 
     # =========================================================================
@@ -803,12 +823,12 @@ def build_docx():
     add_body_p(
         doc,
         [
-            "The evaluated pipeline will run behind a lightweight FastAPI service powering a three-screen mobile workflow (Figure 9, left): (1) curbside AR camera scan of plate and face, (2) live 5-second GPS trip telemetry with automatic walking-tail detection, and (3) an instant curbside scorecard returned within ",
+            "The evaluated pipeline will run behind a lightweight FastAPI service powering a three-screen mobile workflow (Figure 9, left): (1) curbside AR camera scan of the Qingqi rickshaw's plate and driver face, (2) live 5-second GPS trip telemetry along Raiwind Road and inner-city corridors with automatic walking-tail detection, and (3) an instant curbside scorecard returned within ",
             ("two seconds", True),
-            " so the student can negotiate or wave the rickshaw on before boarding.\n"
-            "Because our Evaluate stage proved that single rides are too noisy to judge a driver fairly (F1 = 0.67), deployment enforces four operational safeguards (Table 6). First, the app displays Insufficient Rides (< 5) until a driver accumulates at least five verified trips, where badge accuracy reaches 100%. Second, driver scores use an exponentially weighted moving median that weights recent rides more heavily, allowing drivers who improve their pricing or pace to recover their badge. Third, drivers can scan their own plate to inspect their log and flag disputed trips for review. Fourth, because fuel prices and inflation shift over time, the fair-fare GBR model is retrained monthly against fresh ride-hailing benchmarks, feeding every completed trip back into the ",
+            " so the student can negotiate (e.g. comparing a 140 PKR quote against the 80 PKR fair fare) or wave the Qingqi on before boarding.\n"
+            "Because our Evaluate stage proved that single rides are too noisy to judge a driver fairly (F1 = 0.71), deployment enforces four operational safeguards (Table 6). First, the app displays Insufficient Rides (< 5) until a driver accumulates at least five verified trips, where badge accuracy reaches 100%. Second, driver scores use an exponentially weighted moving median that weights recent rides more heavily, allowing drivers who improve their pricing or pace to recover their badge. Third, drivers can scan their own plate to inspect their log and flag disputed trips for review. Fourth, because fuel prices and inflation shift over time, the fair-fare GBR model is retrained monthly against fresh commuter benchmarks, feeding every completed trip back into the ",
             ("Collect", True),
-            " stage. Figure 9 (right) outlines our eight-week execution plan from prototype to campus beta.",
+            " stage. Figure 9 (right) outlines our eight-week execution plan from prototype to Superior University Gold Campus beta.",
         ],
     )
 
@@ -820,7 +840,7 @@ def build_docx():
     add_caption(
         doc,
         "Figure 9: ",
-        "Left: proposed three-screen mobile workflow (AR scan, live GPS tracking, and curbside scorecard in PKR). Right: eight-week project execution roadmap from metrics definition to campus beta.",
+        "Left: proposed three-screen mobile workflow (Qingqi AR scan, live GPS tracking to Superior University, and curbside scorecard comparing 140 PKR quoted vs. 80 PKR fair). Right: eight-week execution roadmap.",
     )
 
     add_caption(doc, "Table 6: ", "Deployment safeguards translating evaluation lessons into responsible real-world operation.")
@@ -830,9 +850,9 @@ def build_docx():
     for j, h in enumerate(["Operational risk", "Lifecycle evidence", "Deployment safeguard in RahiScan"]):
         format_table_cell(t_sf.rows[0].cells[j], h, size=8.5, bold=True, color=WHITE, bg=HEX_NAVY)
     sf_rows = [
-        ("Single-ride traffic luck", "Single-ride pace macro F1 = 0.67 vs. 100% at ≥ 5 rides (Stage 6)", "Suppress pace and fare badges until a driver has ≥ 5 verified trips; show Insufficient Data otherwise."),
-        ("Shift-shared rickshaws", "6 of 34 plates shared by day/night drivers with different habits (Stage 5)", "Key profiles to composite Plate#FaceID rather than license plate alone (99.8% precision)."),
-        ("Forgotten End Ride taps", "10.8% of trips include pedestrian walking tails (Stage 3)", "Auto-trim trailing pings with speed < 6 km/h and step variance > 1.2 m/s², plus push-notification prompt."),
+        ("Single-ride traffic luck", "Single-ride pace macro F1 = 0.71 vs. 100% at ≥ 5 rides (Stage 6)", "Suppress pace and fare badges until a driver has ≥ 5 verified trips; show Insufficient Data otherwise."),
+        ("Shift-shared Qingqis", "6 of 34 plates shared by day/night drivers with different habits (Stage 5)", "Key profiles to composite Plate#FaceID rather than license plate alone (99.8% precision)."),
+        ("Forgotten End Ride taps", "13.8% of trips include pedestrian walking tails (Stage 3)", "Auto-trim trailing pings with speed < 6 km/h and step variance > 1.0 m/s², plus push-notification prompt."),
         ("Fuel & tariff drift", "Static fare models degrade when petrol prices shift (Stage 7)", "Retrain the GBR fair-fare model monthly on rolling benchmark quotes and weight recent rides exponentially."),
     ]
     for i, (rsk, evi, sfg) in enumerate(sf_rows, start=1):
@@ -843,11 +863,11 @@ def build_docx():
     # Conclusion callout box
     t_conc = doc.add_table(rows=2, cols=1)
     t_conc.alignment = WD_TABLE_ALIGNMENT.CENTER
-    set_table_borders(t_conc, color="1B75BC", sz="6")
-    format_table_cell(t_conc.rows[0].cells[0], "Conclusion: Closing the Lifecycle Loop", size=10, bold=True, color=WHITE, bg="1B75BC")
+    set_table_borders(t_conc, color="2B6CB0", sz="6")
+    format_table_cell(t_conc.rows[0].cells[0], "Conclusion: Closing the Lifecycle Loop", size=10, bold=True, color=WHITE, bg="2B6CB0")
     format_table_cell(
         t_conc.rows[1].cells[0],
-        "Our morning rickshaw story exposed a concrete failure mode at every stage of the Data Science Lifecycle. By validating our design on a 1,224-trip simulated Lahore pilot, we demonstrated that combining plate OCR with facial embeddings resolves shared-vehicle ambiguity at 99.8% precision, change-point trimming removes forgotten walking tails, gradient boosting predicts fair fares within 10.9 PKR, and traffic-normalised multi-ride medians classify driver pace and pricing without penalising honest drivers caught in congestion. Replacing our mock CSV streams with live student telemetry will turn RahiScan into a practical transparency tool for Lahore's daily commuters.",
+        "Our morning Qingqi commute to Superior University Gold Campus exposed a concrete failure mode at every stage of the Data Science Lifecycle. By validating our design on a 1,224-trip simulated Lahore pilot, we demonstrated that combining plate OCR with facial embeddings resolves shared-vehicle ambiguity at 99.8% precision, change-point trimming removes forgotten walking tails, gradient boosting predicts fair Qingqi fares (≈ 80 PKR for 9.6 km and ≈ 120 PKR from Raiwind to Gold Campus) within 1.8 PKR, and traffic-normalised multi-ride medians classify driver pace and pricing at 100% accuracy. Replacing our mock CSV streams with live student telemetry will turn RahiScan into a practical transparency tool for Lahore's daily commuters.",
         size=10.5,
         bg=HEX_SOFTBLUE,
         align=WD_ALIGN_PARAGRAPH.JUSTIFY,

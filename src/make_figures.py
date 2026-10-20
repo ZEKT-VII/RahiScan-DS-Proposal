@@ -21,8 +21,9 @@ ROOT = Path(__file__).resolve().parents[1]
 RAW, PROC, FIG = ROOT / "data" / "raw", ROOT / "data" / "processed", ROOT / "report" / "figures"
 FIG.mkdir(parents=True, exist_ok=True)
 
-NAVY, SLATE, ORANGE, BLUE, GREEN, RED = "#14325F", "#37474F", "#D95F02", "#1B75BC", "#228B57", "#C62828"
-SOFTBLUE, SOFTORANGE, LIGHT, BORDER = "#EBF3FC", "#FEF2E8", "#F5F7FA", "#BEC8D2"
+# IEEE / Nature / Viridis Scientific Colour Palette
+NAVY, SLATE, ORANGE, BLUE, GREEN, RED = "#1B365D", "#334155", "#4A6FA5", "#2B6CB0", "#1F7A7A", "#A82020"
+SOFTBLUE, SOFTORANGE, LIGHT, BORDER = "#EBF2F7", "#F1F5F9", "#F8FAFC", "#94A3B8"
 CLS = {"Slow": RED, "Normal": GREEN, "Fast": BLUE}
 
 plt.rcParams.update({
@@ -49,13 +50,14 @@ def save(fig, name):
 # 1 ---------------------------------------------------------------- route map (Collect)
 pings = pd.read_csv(RAW / "gps_pings.csv.gz")
 PLACES = {  # same landmark coordinates as generate_mock_data.py
-    "Campus (Raiwind Rd)": (31.4010, 74.2110), "Johar Town": (31.4697, 74.2728),
-    "Thokar Niaz Baig": (31.4720, 74.2420), "Township": (31.4490, 74.3080),
-    "Model Town": (31.4835, 74.3260), "Kalma Chowk": (31.5040, 74.3310),
-    "Gulberg (Liberty)": (31.5100, 74.3440), "Barkat Market": (31.5030, 74.3220),
-    "Iqbal Town": (31.5120, 74.2930), "Mall Road": (31.5590, 74.3240),
+    "Superior Gold Campus": (31.4010, 74.2110), "Raiwind": (31.2590, 74.1940),
+    "Johar Town": (31.4697, 74.2728), "Thokar Niaz Baig": (31.4720, 74.2420),
+    "Township": (31.4490, 74.3080), "Model Town": (31.4835, 74.3260),
+    "Kalma Chowk": (31.5040, 74.3310), "Gulberg (Liberty)": (31.5100, 74.3440),
+    "Barkat Market": (31.5030, 74.3220), "Iqbal Town": (31.5120, 74.2930),
+    "Mall Road": (31.5590, 74.3240),
 }
-fig, (ax, axh) = plt.subplots(1, 2, figsize=(7.6, 4.3), gridspec_kw={"width_ratios": [1.15, 1]})
+fig, (ax, axh) = plt.subplots(1, 2, figsize=(7.6, 3.6), gridspec_kw={"width_ratios": [1.05, 1.1]})
 ax.set_facecolor(LIGHT)
 sample = trips.sample(160, random_state=3)
 for _, r in sample.iterrows():
@@ -66,18 +68,20 @@ for _, r in sample.iterrows():
     if len(walk):
         ax.plot(walk["lon"], walk["lat"], color=RED, alpha=0.8, lw=1.2)
 for name, (la, lo) in PLACES.items():
-    ax.scatter(lo, la, s=46, color=ORANGE if "Campus" in name else NAVY, zorder=5, edgecolor="white", lw=1)
-    off = {"Barkat Market": (-58, -16), "Kalma Chowk": (5, -11), "Gulberg (Liberty)": (-20, 7), "Thokar Niaz Baig": (-78, 5),
-           "Johar Town": (5, -10), "Campus (Raiwind Rd)": (6, -4), "Iqbal Town": (-48, 6)}.get(name, (5, 4))
-    ax.annotate(name, (lo, la), xytext=off, textcoords="offset points", fontsize=7.5, color=NAVY, weight="bold")
+    ax.scatter(lo, la, s=38, color=GREEN if "Campus" in name else NAVY, zorder=5, edgecolor="white", lw=0.9)
+    off = {"Barkat Market": (-58, -11), "Kalma Chowk": (-48, 4), "Gulberg (Liberty)": (5, -2), "Thokar Niaz Baig": (-68, -2),
+           "Johar Town": (-45, -8), "Township": (5, -5), "Model Town": (5, -6),
+           "Superior Gold Campus": (6, -3), "Raiwind": (6, -2), "Iqbal Town": (-44, 4), "Mall Road": (-42, -2)}.get(name, (5, 4))
+    ax.annotate(name, (lo, la), xytext=off, textcoords="offset points", fontsize=6.8, color=NAVY, weight="bold")
+ax.set_xlim(74.16, 74.41); ax.set_ylim(31.23, 31.58)
 ax.set_xlabel("Longitude (°E)"); ax.set_ylabel("Latitude (°N)")
 ax.set_title("GPS traces (160-trip sample)")
-ax.legend(handles=[plt.Line2D([], [], color=BLUE, lw=2, label="In-rickshaw ride trace"),
-                   plt.Line2D([], [], color=RED, lw=2, label="Walking tail")], loc="upper left", fontsize=7.5)
-ax.set_aspect(1 / np.cos(np.radians(31.47))); ax.tick_params(labelsize=8)
+ax.legend(handles=[plt.Line2D([], [], color=BLUE, lw=2, label="Qingqi ride trace"),
+                   plt.Line2D([], [], color=RED, lw=2, label="Walking tail")], loc="lower right", fontsize=7.2)
+ax.tick_params(labelsize=8)
 hrs = trips.groupby(["hour", "weekend"]).size().unstack(fill_value=0).reindex(range(24), fill_value=0)
 axh.bar(hrs.index, hrs[0], color=NAVY, label="Weekday trips")
-axh.bar(hrs.index, hrs.get(1, 0), bottom=hrs[0], color=ORANGE, label="Weekend trips")
+axh.bar(hrs.index, hrs.get(1, 0), bottom=hrs[0], color=GREEN, label="Weekend trips")
 axh.set_xticks(range(0, 24, 3), [f"{h:02d}" for h in range(0, 24, 3)])
 axh.set_xlabel("Hour of day"); axh.set_ylabel("Clean trips logged"); axh.set_title("When riders will scan")
 axh.legend(fontsize=8, loc="upper left"); axh.grid(axis="x", visible=False)
@@ -132,7 +136,7 @@ save(fig, "fig_cleaning")
 
 # 4 ---------------------------------------------------------------- corridor x hour heatmap (Explore)
 hm = trips[trips["weekend"] == 0].pivot_table(index="corridor", columns="hour_bucket", values="v_base", aggfunc="median")
-cmap = LinearSegmentedColormap.from_list("rs", [RED, "#F6C28B", "#DCEFE3", GREEN])
+cmap = LinearSegmentedColormap.from_list("rs", [RED, "#D8E2EC", BLUE, GREEN])
 fig, ax = plt.subplots(figsize=(7.4, 2.9))
 ax.grid(False)
 im = ax.imshow(hm.values, aspect="auto", cmap=cmap, vmin=10, vmax=32)
@@ -142,7 +146,7 @@ for i in range(hm.shape[0]):
     for j in range(hm.shape[1]):
         v = hm.values[i, j]
         if not np.isnan(v):
-            ax.text(j, i, f"{v:.0f}", ha="center", va="center", fontsize=7.5, color="white" if v < 15 or v > 28 else NAVY)
+            ax.text(j, i, f"{v:.0f}", ha="center", va="center", fontsize=7.5, color="white" if v < 15 or v > 22 else NAVY)
 cb = fig.colorbar(im, ax=ax, pad=0.01); cb.set_label("km/h", color=SLATE); cb.outline.set_visible(False)
 ax.set_title("Crowd-sourced ambient baseline speed $v_{base}$ by corridor and hour (weekdays)")
 save(fig, "fig_heatmap")
@@ -190,7 +194,7 @@ save(fig, "fig_quadrant")
 fig, axs = plt.subplots(1, 3, figsize=(7.8, 2.8), gridspec_kw={"width_ratios": [1.1, 0.9, 1.0], "wspace": 0.55})
 a = axs[0]
 a.scatter(fare_te["benchmark_fare_pkr"], fare_te["fair_fare_pred"], s=8, color=BLUE, alpha=0.6, edgecolor="none")
-lim = [fare_te["benchmark_fare_pkr"].min() - 10, fare_te["benchmark_fare_pkr"].max() + 10]
+lim = [fare_te["benchmark_fare_pkr"].min() - 5, fare_te["benchmark_fare_pkr"].max() + 5]
 a.plot(lim, lim, color=NAVY, ls="--", lw=1); a.set_xlim(lim); a.set_ylim(lim)
 a.set_xlabel("Benchmark fare (PKR)"); a.set_ylabel("Predicted fair fare (PKR)"); a.set_title("Fare model, week-4 holdout")
 a.text(0.05, 0.88, f"MAE = {M['fare']['gbr_mae']:.1f} PKR", transform=a.transAxes, color=GREEN, weight="bold", fontsize=9)
@@ -200,7 +204,7 @@ vals = [M["fare"]["flat_rate_mae"], M["fare"]["linear_distance_only_mae"], M["fa
 b = a.bar(names, vals, color=[BORDER, BLUE, GREEN], width=0.6); a.set_yscale("log")
 for rect, v in zip(b, vals):
     a.text(rect.get_x() + rect.get_width() / 2, v * 1.08, f"{v:.1f}", ha="center", fontsize=8.5, weight="bold", color=NAVY)
-a.axhline(15, color=RED, ls="--", lw=1); a.text(2.35, 16.5, "target\n< 15", color=RED, fontsize=7.5, ha="right")
+a.axhline(5, color=RED, ls="--", lw=1); a.text(2.35, 5.6, "target\n< 5 PKR", color=RED, fontsize=7.5, ha="right")
 a.set_title("Fare MAE (PKR, log)"); a.grid(axis="x", visible=False); a.tick_params(axis="x", labelsize=8)
 a = axs[2]
 cm = np.array(M["pace"]["confusion_matrix"]); lab = M["pace"]["confusion_labels"]

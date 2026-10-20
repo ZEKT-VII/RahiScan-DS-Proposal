@@ -38,7 +38,8 @@ RAW.mkdir(parents=True, exist_ok=True)
 # 1. Geography: approximate Lahore landmarks (lat, lon)
 # ---------------------------------------------------------------------------
 PLACES = {
-    "Campus (Raiwind Rd)": (31.4010, 74.2110),
+    "Superior Gold Campus": (31.4010, 74.2110),
+    "Raiwind": (31.2590, 74.1940),
     "Johar Town": (31.4697, 74.2728),
     "Thokar Niaz Baig": (31.4720, 74.2420),
     "Township": (31.4490, 74.3080),
@@ -52,16 +53,16 @@ PLACES = {
 
 # corridor -> (origin, destination, free-flow speed km/h, congestion sensitivity)
 CORRIDORS = {
-    "C1 Johar Town - Campus": ("Johar Town", "Campus (Raiwind Rd)", 29.0, 0.85),
-    "C2 Thokar - Campus": ("Thokar Niaz Baig", "Campus (Raiwind Rd)", 31.0, 0.70),
-    "C3 Township - Campus": ("Township", "Campus (Raiwind Rd)", 28.0, 0.90),
-    "C4 Kalma - Gulberg": ("Kalma Chowk", "Gulberg (Liberty)", 24.0, 1.05),
-    "C5 Model Town - Township": ("Model Town", "Township", 25.0, 0.95),
-    "C6 Barkat - Iqbal Town": ("Barkat Market", "Iqbal Town", 24.5, 1.00),
-    "C7 Mall Road - Gulberg": ("Mall Road", "Gulberg (Liberty)", 23.0, 1.25),
-    "C8 Iqbal Town - Johar Town": ("Iqbal Town", "Johar Town", 27.0, 0.90),
+    "C1 Johar Town - Gold Campus": ("Johar Town", "Superior Gold Campus", 29.0, 0.85),
+    "C2 Raiwind - Gold Campus": ("Raiwind", "Superior Gold Campus", 31.0, 0.70),
+    "C3 Thokar - Gold Campus": ("Thokar Niaz Baig", "Superior Gold Campus", 30.0, 0.75),
+    "C4 Township - Gold Campus": ("Township", "Superior Gold Campus", 28.0, 0.90),
+    "C5 Kalma - Gulberg": ("Kalma Chowk", "Gulberg (Liberty)", 24.0, 1.05),
+    "C6 Model Town - Township": ("Model Town", "Township", 25.0, 0.95),
+    "C7 Barkat - Iqbal Town": ("Barkat Market", "Iqbal Town", 24.5, 1.00),
+    "C8 Mall Road - Gulberg": ("Mall Road", "Gulberg (Liberty)", 23.0, 1.25),
 }
-CORRIDOR_WEIGHTS = np.array([0.20, 0.12, 0.13, 0.13, 0.11, 0.10, 0.10, 0.11])
+CORRIDOR_WEIGHTS = np.array([0.20, 0.14, 0.12, 0.12, 0.11, 0.11, 0.10, 0.10])
 
 
 def haversine_km(a, b):
@@ -251,10 +252,10 @@ for t in range(N_TRIPS):
         pings.append((trip_id, int(k), (start_ts + timedelta(seconds=int(secs[k]))).isoformat(),
                       round(float(lat[k]), 6), round(float(lon[k]), 6), round(float(abs(accel_var[k])), 3), mode[k]))
 
-    # --- fares ---
-    fair_true = 70 + 42 * path_km * (1 + 0.25 * tau)
-    benchmark = round(fair_true * rng.normal(1, 0.03) / 5) * 5
-    quoted = round(fair_true * drv.true_overcharge_factor * rng.normal(1, 0.04) / 10) * 10
+    # --- fares (Pakistani Qingqi rickshaw pricing: ~80 PKR for 9.6 km, ~120 PKR Raiwind to Superior Gold Campus) ---
+    fair_true = 16 + 5.9 * path_km * (1 + 0.30 * tau)
+    benchmark = round(fair_true * rng.normal(1, 0.025))
+    quoted = round(fair_true * drv.true_overcharge_factor * rng.normal(1, 0.035) / 5) * 5
     fare_issue = "ok"
     r = rng.random()
     if r < 0.03:

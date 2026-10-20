@@ -1,34 +1,34 @@
 {
   "identity": {
     "id_plate_only": {
-      "coverage": 0.8849,
-      "precision": 0.8571
+      "coverage": 0.9105,
+      "precision": 0.8349
     },
     "id_fused": {
-      "coverage": 0.9372,
-      "precision": 0.9981
+      "coverage": 0.947,
+      "precision": 0.9982
     }
   },
   "walking_tail": {
     "precision": 1.0,
-    "recall": 0.8846,
-    "n_tails": 130
+    "recall": 0.8243,
+    "n_tails": 148
   },
   "fare": {
-    "gbr_mae": 10.87,
-    "linear_distance_only_mae": 12.09,
-    "flat_rate_mae": 117.57,
+    "gbr_mae": 1.79,
+    "linear_distance_only_mae": 2.55,
+    "flat_rate_mae": 22.51,
     "feature_importance": {
-      "distance_km": 0.8611,
-      "v_base": 0.0096,
-      "hour": 0.0021,
-      "weekend": 0.0003,
-      "corridor_code": 0.1268
+      "distance_km": 0.6698,
+      "v_base": 0.0078,
+      "hour": 0.0018,
+      "weekend": 0.0001,
+      "corridor_code": 0.3205
     }
   },
   "pace": {
-    "macro_f1_normalised": 0.6678,
-    "macro_f1_raw_speed": 0.4532,
+    "macro_f1_normalised": 0.7054,
+    "macro_f1_raw_speed": 0.5364,
     "confusion_labels": [
       "Slow",
       "Normal",
@@ -37,32 +37,32 @@
     "confusion_matrix": [
       [
         4,
-        5,
+        1,
         0
       ],
       [
-        2,
-        238,
-        7
+        1,
+        234,
+        5
       ],
       [
         0,
         13,
-        11
+        5
       ]
     ],
-    "n_test": 280
+    "n_test": 263
   },
   "drivers": {
     "n_drivers": 40,
     "pace_badge_accuracy": 1.0,
-    "raw_speed_badge_accuracy": 0.875,
+    "raw_speed_badge_accuracy": 0.9,
     "fare_badge_accuracy": 1.0
   },
   "dataset": {
-    "clean_trips": 1058,
+    "clean_trips": 1071,
     "corridors": 8,
-    "pings": 364488,
-    "median_tail_bias_kmh": 3.14
+    "pings": 411829,
+    "median_tail_bias_kmh": 2.36
   }
 }
