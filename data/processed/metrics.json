@@ -1,0 +1,68 @@
+{
+  "identity": {
+    "id_plate_only": {
+      "coverage": 0.8849,
+      "precision": 0.8571
+    },
+    "id_fused": {
+      "coverage": 0.9372,
+      "precision": 0.9981
+    }
+  },
+  "walking_tail": {
+    "precision": 1.0,
+    "recall": 0.8846,
+    "n_tails": 130
+  },
+  "fare": {
+    "gbr_mae": 10.87,
+    "linear_distance_only_mae": 12.09,
+    "flat_rate_mae": 117.57,
+    "feature_importance": {
+      "distance_km": 0.8611,
+      "v_base": 0.0096,
+      "hour": 0.0021,
+      "weekend": 0.0003,
+      "corridor_code": 0.1268
+    }
+  },
+  "pace": {
+    "macro_f1_normalised": 0.6678,
+    "macro_f1_raw_speed": 0.4532,
+    "confusion_labels": [
+      "Slow",
+      "Normal",
+      "Fast"
+    ],
+    "confusion_matrix": [
+      [
+        4,
+        5,
+        0
+      ],
+      [
+        2,
+        238,
+        7
+      ],
+      [
+        0,
+        13,
+        11
+      ]
+    ],
+    "n_test": 280
+  },
+  "drivers": {
+    "n_drivers": 40,
+    "pace_badge_accuracy": 1.0,
+    "raw_speed_badge_accuracy": 0.875,
+    "fare_badge_accuracy": 1.0
+  },
+  "dataset": {
+    "clean_trips": 1058,
+    "corridors": 8,
+    "pings": 364488,
+    "median_tail_bias_kmh": 3.14
+  }
+}

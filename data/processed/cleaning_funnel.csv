@@ -1,0 +1,7 @@
+step,records
+Raw ride submissions,1224
+Duplicate uploads removed,1200
+Missing / typo fares removed,1147
+Unverifiable identities removed,1075
+Low GPS coverage removed,1058
+Walking tails trimmed (kept),1058

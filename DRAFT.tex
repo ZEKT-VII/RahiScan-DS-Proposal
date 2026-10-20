@@ -1,0 +1,382 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- UNIVERSAL PREAMBLE BLOCK ---
+\usepackage[a4paper, top=2.8cm, bottom=2.6cm, left=2cm, right=2cm, headheight=32pt, footskip=36pt]{geometry}
+\usepackage{fontspec}
+
+\usepackage[english, bidi=basic, provide=*]{babel}
+
+\babelprovide[import, onchar=ids fonts]{english}
+
+% Set default font to Noto Serif to match academic Times New Roman 12pt requirement
+\babelfont{rm}{Noto Serif}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\definecolor{navyblue}{RGB}{20, 50, 95}
+\definecolor{slate}{RGB}{55, 71, 79}
+\definecolor{softblue}{RGB}{235, 243, 252}
+\definecolor{softorange}{RGB}{254, 242, 232}
+\definecolor{accentorange}{RGB}{217, 95, 2}
+\definecolor{accentblue}{RGB}{27, 117, 188}
+\definecolor{accentgreen}{RGB}{34, 139, 87}
+\definecolor{accentred}{RGB}{198, 40, 40}
+\definecolor{lightgray}{RGB}{245, 247, 250}
+\definecolor{bordergray}{RGB}{190, 200, 210}
+
+% Enforce exact font sizes from assignment guidelines:
+% Heading = 16pt, Subheading = 14pt, Body & Sub-subheading = 12pt
+\newcommand{\mainheading}[1]{%
+  \vspace{10pt}%
+  {\noindent\fontsize{16pt}{20pt}\selectfont\bfseries\color{navyblue}#1\par}%
+  \vspace{4pt}%
+  {\noindent\color{accentorange}\rule{\textwidth}{1.2pt}\par}%
+  \vspace{6pt}%
+}
+
+\newcommand{\subheading}[1]{%
+  \vspace{8pt}%
+  {\noindent\fontsize{14pt}{18pt}\selectfont\bfseries\color{slate}#1\par}%
+  \vspace{4pt}%
+}
+
+\newcommand{\subsubheading}[1]{%
+  \vspace{6pt}%
+  {\noindent\fontsize{12pt}{15pt}\selectfont\bfseries\color{navyblue}#1\par}%
+  \vspace{2pt}%
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\fontsize{8.5pt}{10.5pt}\selectfont\textbf{Title:} RahiScan: Automated Rickshaw Fare \& Pace Telemetry Proposal}
+\fancyhead[R]{\fontsize{8.5pt}{10.5pt}\selectfont\textbf{Course:} Introduction to Data Science}
+\fancyhead[C]{}
+\renewcommand{\headrulewidth}{0.6pt}
+
+\fancyfoot[L]{\fontsize{8pt}{10pt}\selectfont\textbf{Team:} M. Saad Hussain (SU92-BSCSM-F25-260) $|$ M. Khubaib (SU92-BSCSM-F25-300) $|$ Huzaifa (SU92-BSCSM-F25-408)}
+\fancyfoot[R]{\fontsize{8.5pt}{10pt}\selectfont\textbf{Page \thepage\ of 3}}
+\renewcommand{\footrulewidth}{0.6pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\begin{document}
+
+% =============================================================================
+% PAGE 1: GROUP CONTRIBUTIONS FORM & VISUAL SYSTEM OVERVIEW
+% =============================================================================
+
+\mainheading{RahiScan: Automated Rickshaw Fare and Pace Telemetry System}
+
+\subheading{Official Group Contributions Form (Page 1)}
+
+This document constitutes the formal project proposal and group contribution record submitted by our three-member student team for the Introduction to Data Science assignment due on 21st October. Every member collaborated directly to conceptualize the RahiScan mobile telemetry application, frame our commuting case study narrative from our group's perspective, and extract each operational phase across the seven stages of the Data Science Lifecycle.
+
+\vspace{4pt}
+\renewcommand{\arraystretch}{1.55}
+\begin{tabular}{|>{\columncolor{softblue}\bfseries}p{3.6cm}|>{\centering\arraybackslash}p{3.8cm}|p{7.8cm}|}
+\hline
+\rowcolor{navyblue}
+\textcolor{white}{\textbf{Member Name}} & \textcolor{white}{\textbf{University Roll No.}} & \textcolor{white}{\textbf{Assigned Responsibilities \& Contributions}} \\
+\hline
+Muhammad Saad Hussain & \textbf{SU92-BSCSM-F25-260} & Formulated the RahiScan commuter proposal concept, drafted the first-person case study story narrative, designed the system architecture visual, and mapped the \textbf{Define} and \textbf{Collect} lifecycle stages. \\
+\hline
+Muhammad Khubaib & \textbf{SU92-BSCSM-F25-300} & Designed the multi-modal sensor validation rules, engineered the Pace Index and Fare Ratio formulas, built the mock Lahore telemetry dataset, and mapped the \textbf{Clean}, \textbf{Explore}, and \textbf{Model} stages. \\
+\hline
+Huzaifa & \textbf{SU92-BSCSM-F25-408} & Established the statistical evaluation benchmarks, mapped the \textbf{Evaluate} and \textbf{Deploy} lifecycle stages, constructed the exploratory scatter and bar charts, and audited strict formatting compliance. \\
+\hline
+\end{tabular}
+
+\vspace{6pt}
+\subsubheading{Member Contribution Breakdown in matching Notebook Format}
+
+To match the assignment sheet layout, the schematic table below summarizes the division of work across our three-person team alongside our target deliverables.
+
+\vspace{2pt}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|>{\columncolor{lightgray}\bfseries}p{4.8cm}|p{10.9cm}|}
+\hline
+Member 1: Muhammad Saad Hussain (SU92-BSCSM-F25-260) & Problem formulation, roadside rickshaw scanning workflow design, optical and GPS data collection schema, and narrative story drafting. \\
+\hline
+Member 2: Muhammad Khubaib (SU92-BSCSM-F25-300) & OCR confidence filtering, pedestrian walking-tail GPS trimming logic, ambient traffic normalization math, and gradient boosting architecture. \\
+\hline
+Member 3: Huzaifa (SU92-BSCSM-F25-408) & Holdout test set validation design (MAE and $F_1$-Score thresholds), real-time mobile overlay deployment plan, and vector chart generation. \\
+\hline
+\end{tabular}
+
+\vspace{8pt}
+\subsubheading{Figure 1: Proposed RahiScan Computer Vision \& Telemetry System Architecture}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95, every node/.style={transform shape}]
+  % Outer frame
+  \draw[rounded corners=6pt, draw=bordergray, line width=1pt, fill=lightgray] (0,0) rectangle (16.8,6.2);
+
+  % Box 1: Rickshaw & Driver Input
+  \draw[rounded corners=5pt, draw=navyblue, line width=1.1pt, fill=white] (0.4,0.6) rectangle (5.2,5.6);
+  \fill[navyblue] (0.4,4.8) rectangle (5.2,5.6);
+  \node[text=white, font=\bfseries\small] at (2.8,5.2) {1. CURBSIDE SCAN INPUT};
+
+  % Illustrated Rickshaw Silhouette inside Box 1
+  \draw[rounded corners=3pt, draw=slate, line width=1pt, fill=softblue] (1.0,2.3) rectangle (4.6,4.4);
+  \draw[dashed, draw=accentred, line width=1pt] (2.1,3.3) rectangle (3.5,4.2);
+  \node[font=\scriptsize\bfseries, text=accentred] at (2.8,3.75) {Driver Face ROI};
+  \draw[dashed, draw=accentblue, line width=1pt] (1.8,2.45) rectangle (3.8,3.05);
+  \node[font=\scriptsize\bfseries, text=accentblue] at (2.8,2.75) {Plate: LEP-9042};
+
+  \node[font=\scriptsize, align=center, text=slate] at (2.8,1.4) {Passenger snaps 1 photo,\\enters quoted fare (PKR),\\and starts ride GPS tracker.};
+
+  % Arrow 1 -> 2
+  \draw[->, >=stealth, line width=1.8pt, draw=accentorange] (5.3,3.1) -- (6.0,3.1);
+
+  % Box 2: Cloud AI & Telemetry Engine
+  \draw[rounded corners=5pt, draw=navyblue, line width=1.1pt, fill=white] (6.1,0.6) rectangle (11.1,5.6);
+  \fill[navyblue] (6.1,4.8) rectangle (11.1,5.6);
+  \node[text=white, font=\bfseries\small] at (8.6,5.2) {2. TELEMETRY \& ML PIPELINE};
+
+  \draw[rounded corners=3pt, draw=accentblue, fill=softblue] (6.4,3.6) rectangle (10.8,4.5);
+  \node[font=\scriptsize\bfseries, text=navyblue] at (8.6,4.2) {MobileNetV3 + Plate OCR};
+  \node[font=\scriptsize, text=slate] at (8.6,3.85) {Matches Driver \& Vehicle Hash};
+
+  \draw[rounded corners=3pt, draw=accentorange, fill=softorange] (6.4,2.3) rectangle (10.8,3.3);
+  \node[font=\scriptsize\bfseries, text=accentorange] at (8.6,2.95) {GPS Kinematic Cleaner};
+  \node[font=\scriptsize, text=slate] at (8.6,2.55) {Trims walk tails \& normalizes speed};
+
+  \draw[rounded corners=3pt, draw=accentgreen, fill=white] (6.4,0.9) rectangle (10.8,2.0);
+  \node[font=\scriptsize\bfseries, text=accentgreen] at (8.6,1.65) {Gradient Boosted Regressor};
+  \node[font=\scriptsize, text=slate] at (8.6,1.2) {Outputs Pace Index $\Pi_i$ \& Fair Fare};
+
+  % Arrow 2 -> 3
+  \draw[->, >=stealth, line width=1.8pt, draw=accentorange] (11.2,3.1) -- (11.9,3.1);
+
+  % Box 3: Commuter Decision Card
+  \draw[rounded corners=5pt, draw=navyblue, line width=1.1pt, fill=white] (12.0,0.6) rectangle (16.4,5.6);
+  \fill[accentgreen] (12.0,4.8) rectangle (16.4,5.6);
+  \node[text=white, font=\bfseries\small] at (14.2,5.2) {3. LIVE APP OVERLAY};
+
+  \draw[rounded corners=3pt, draw=bordergray, fill=lightgray] (12.3,3.6) rectangle (16.1,4.5);
+  \node[font=\scriptsize\bfseries, text=navyblue] at (14.2,4.2) {Verified ID: LEP-9042 \#F08};
+  \node[font=\scriptsize, text=accentred] at (14.2,3.85) {Badge: HABITUALLY SLOW};
+
+  \draw[rounded corners=3pt, draw=bordergray, fill=lightgray] (12.3,2.3) rectangle (16.1,3.3);
+  \node[font=\scriptsize\bfseries, text=slate] at (14.2,2.95) {Pace Index: $\Pi_i = 0.52$};
+  \node[font=\scriptsize, text=slate] at (14.2,2.55) {(48\% slower than route traffic)};
+
+  \draw[rounded corners=3pt, draw=accentgreen, fill=softblue] (12.3,0.9) rectangle (16.1,2.0);
+  \node[font=\scriptsize\bfseries, text=navyblue] at (14.2,1.65) {Fair Fare: 245 -- 270 PKR};
+  \node[font=\scriptsize\bfseries, text=accentred] at (14.2,1.2) {Quoted 480 PKR (Overpriced)};
+\end{tikzpicture}
+\end{center}
+
+\newpage
+
+% =============================================================================
+% PAGE 2: CASE STUDY PROPOSAL STORY & LIFECYCLE EXTRACTION (STAGES 1-4)
+% =============================================================================
+
+\mainheading{Case Study Proposal: RahiScan Commuter Intelligence}
+
+\subheading{Our Proposed Case Study Story}
+
+Every morning, our three-member student group---Muhammad Saad Hussain, Muhammad Khubaib, and Huzaifa---commutes across Lahore to reach our university campus on time for lectures. Because local auto-rickshaws operate without standardized fare meters, our daily rides routinely begin with frustrating roadside price negotiations where drivers demand inflated fares for short routes. Even after agreeing on a price, we frequently find ourselves stuck in rickshaws driven at unusually slow speeds by drivers who linger at intersections or crawl along clear roads to conserve fuel, causing us to arrive late to morning labs. Recognizing that thousands of students face this exact information asymmetry, our group has formulated a proposal to build \textbf{RahiScan}, a crowd-sourced mobile computer vision and GPS telemetry application that identifies any approaching rickshaw from a smartphone photo and immediately predicts whether that specific driver charges fair prices and drives at a reliable pace.
+
+To turn this concept into a functioning data science pipeline, our group has designed a four-week field implementation plan across major student commuting corridors. Under our proposed workflow, whenever one of us---or a participating student commuter---approaches a rickshaw at the curb, we will open the RahiScan camera interface and snap a single front-angle photograph capturing both the vehicle's Punjab excise number plate and the driver's face. Before stepping into the vehicle, the user will type the driver's quoted fare into the prompt and initialize the ride tracker. Once initialized, the application will silently log background GPS coordinates, timestamps, and instantaneous velocity every five seconds from the pickup point to the final destination. By pooling these multi-modal logs across dozens of daily trips, our proposed platform will build an objective performance profile for each rickshaw and driver, allowing future passengers to scan a vehicle and view an instant fairness and speed reliability rating before agreeing to board.
+
+\subsubheading{Figure 2: Reference Data Science Lifecycle Mapped to Our Proposal (Lecture 02 Framework)}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.94, every node/.style={transform shape}]
+  % 7 Lifecycle Cards matching Lecture 02 Slide exactly
+  \foreach \i/\stage/\question/\action/\col in {
+    0/DEFINE/{What problem should be solved?}/{Predict driver Pace Index \& Fair Fare}/navyblue,
+    1/COLLECT/{What evidence is needed?}/{Plate/Face photos, fare \& GPS logs}/accentblue,
+    2/CLEAN/{Can the data be trusted?}/{Filter blurry OCR \& walk-tail GPS}/navyblue,
+    3/EXPLORE/{What patterns appear?}/{Normalize speed vs traffic baseline}/accentblue,
+    4/MODEL/{Can patterns support prediction?}/{CNN ID + Gradient Boosted trees}/navyblue,
+    5/EVALUATE/{How reliable is the result?}/{Audit Fare MAE \& Pace F1-Score}/accentblue,
+    6/DEPLOY/{How will the decision be used?}/{2-sec curb camera rating overlay}/accentgreen%
+  } {
+    \pgfmathsetmacro{\x}{\i*2.45}
+    \draw[rounded corners=4pt, draw=\col, line width=1pt, fill=white] (\x,0) rectangle (\x+2.2,3.4);
+    \fill[\col] (\x,2.65) rectangle (\x+2.2,3.4);
+    \node[text=white, font=\bfseries\scriptsize] at (\x+1.1,3.02) {\stage};
+    \node[text=slate, font=\itshape\tiny, align=center, text width=2.0cm] at (\x+1.1,2.05) {\question};
+    \draw[draw=bordergray] (\x+0.15,1.45) -- (\x+2.05,1.45);
+    \node[text=navyblue, font=\bfseries\tiny, align=center, text width=2.0cm] at (\x+1.1,0.75) {\action};
+  }
+  % Connecting arrows between boxes
+  \foreach \i in {0,1,2,3,4,5} {
+    \pgfmathsetmacro{\xstart}{\i*2.45 + 2.22}
+    \pgfmathsetmacro{\xend}{(\i+1)*2.45 - 0.02}
+    \draw[->, >=stealth, line width=1.2pt, draw=accentorange] (\xstart,1.7) -- (\xend,1.7);
+  }
+\end{tikzpicture}
+\end{center}
+
+\subheading{Extracting the Data Science Lifecycle from Our Proposal}
+
+As emphasized in our course lectures, a data science project becomes weak when any stage of the lifecycle is skipped or misunderstood. To guarantee that RahiScan produces trustworthy commuting decisions, our group has extracted and mapped every operational phase of our proposed case study onto the seven stages of the Data Science Lifecycle shown in Figure 2.
+
+In the \textbf{Define} stage, which addresses what problem should be solved, our team translated our daily commuting frustrations into two quantifiable prediction targets. Rather than vaguely labeling a driver as good or bad, we defined two mathematical metrics for our system to estimate: a normalized \textbf{Driving Pace Index} ($\Pi_i = v_{\text{obs},i} / v_{\text{base},i}$) that measures a driver's observed speed relative to surrounding road traffic, and a \textbf{Fare Fairness Ratio} ($\Phi_i = \text{Fare}_{\text{quoted},i} / \text{Fare}_{\text{fair},i}$) that compares a driver's quoted price against distance and congestion baselines. In the \textbf{Collect} stage, which determines what evidence is needed, our group designed a multi-modal data acquisition protocol. Visual identification requires front-facing smartphone images containing the rickshaw's metallic number plate and the driver's facial landmarks so the system can track drivers even when multiple operators rent the same vehicle across shifts. Behavioral evaluation requires the passenger's manually entered fare quote in Pakistani Rupees ($\text{PKR}$) alongside continuous GPS telemetry logged every five seconds after initialization, recording latitude, longitude, elapsed time $t$, and total route distance $d$.
+
+In the \textbf{Clean} stage, which answers whether the collected data can be trusted, our group anticipates two major sources of real-world sensor corruption that must be filtered before analysis. First, street photos captured in glare or evening traffic will produce garbled optical character recognition strings from dented number plates; our pipeline will enforce a minimum optical confidence threshold of $0.85$ and cross-verify ambiguous reads against the driver's facial embedding vector. Second, student commuters hurrying into morning lectures will frequently forget to press the ``End Ride'' button upon exiting the rickshaw, causing the GPS logger to record slow pedestrian walking steps inside campus buildings and artificially dragging down the driver's calculated velocity. Our cleaning algorithm will apply a kinematic change-point filter that automatically trims the trip tail the instant velocity drops below $6.0\text{ km/h}$ and step-frequency accelerometer variance rises.
+
+\newpage
+
+% =============================================================================
+% PAGE 3: EXPLORE, MODEL, EVALUATE & DEPLOY WITH MOCK DATA TABLES & CHARTS
+% =============================================================================
+
+\subheading{Exploratory Patterns, Mock Telemetry Dataset, and Modeling Pipeline}
+
+Once the cleaned telemetry records are compiled, our project advances to the \textbf{Explore} stage to discover what patterns appear across Lahore commuting routes. A critical insight of our exploratory design is that raw average speed ($v_{\text{obs}}$) cannot be used in isolation to judge a driver because a fast driver trapped in a Canal Road rush-hour bottleneck will record a low velocity through no fault of their own. By normalizing each trip's velocity against the ambient segment baseline speed ($v_{\text{base}}$) for that exact hour, true driver slowness separates cleanly from external traffic delays, as demonstrated in our structured mock telemetry dataset in Table 1.
+
+\subsubheading{Table 1: Proposed Cleaned Telemetry and Feature Engineering Dataset (Mock Sample)}
+
+\vspace{2pt}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|>{\columncolor{softblue}\bfseries\footnotesize}c|>{\footnotesize}c|>{\footnotesize}l|>{\footnotesize}c|>{\footnotesize}c|>{\footnotesize}c|>{\footnotesize}c|>{\footnotesize}c|>{\footnotesize\bfseries}c|}
+\hline
+\rowcolor{navyblue}
+\textcolor{white}{\textbf{Trip}} & \textcolor{white}{\textbf{Plate \& Face}} & \textcolor{white}{\textbf{Lahore Route}} & \textcolor{white}{\textbf{Dist.}} & \textcolor{white}{\textbf{$v_{\text{obs}}$}} & \textcolor{white}{\textbf{$v_{\text{base}}$}} & \textcolor{white}{\textbf{Pace}} & \textcolor{white}{\textbf{Quoted / Fair}} & \textcolor{white}{\textbf{Predicted}} \\
+\rowcolor{navyblue}
+\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Hash ID}} & \textcolor{white}{\textbf{Corridor}} & \textcolor{white}{\textbf{(km)}} & \textcolor{white}{\textbf{(km/h)}} & \textcolor{white}{\textbf{(km/h)}} & \textcolor{white}{\textbf{Index $\Pi_i$}} & \textcolor{white}{\textbf{Fare (PKR)}} & \textcolor{white}{\textbf{Driver Class}} \\
+\hline
+TR-01 & \texttt{LEP-4819\#F12} & Johar Town -- Campus & 5.4 & 22.8 & 23.5 & 0.97 & 300 / 285 & \textcolor{accentgreen}{Fair \& Normal} \\
+\hline
+TR-02 & \texttt{LEP-9042\#F08} & Kalma -- Gulberg & 4.6 & 11.5 & 22.0 & 0.52 & 480 / 260 & \textcolor{accentred}{Overpriced \& Slow} \\
+\hline
+TR-03 & \texttt{LEP-1105\#F31} & Model Town -- Twp & 3.8 & 22.6 & 23.0 & 0.98 & 220 / 215 & \textcolor{accentgreen}{Fair \& Normal} \\
+\hline
+TR-04 & \texttt{LEP-9042\#F08} & Barkat -- Iqbal Town & 4.1 & 11.5 & 21.0 & 0.55 & 430 / 235 & \textcolor{accentred}{Overpriced \& Slow} \\
+\hline
+TR-05 & \texttt{LEP-6320\#F19} & Mall Rd Peak Jam & 6.2 & 13.0 & 13.5 & 0.96 & 360 / 350 & \textcolor{accentblue}{Fair (Traffic Jam)} \\
+\hline
+\end{tabular}
+
+\vspace{4pt}
+\subsubheading{Figure 3: Exploratory Velocity Clustering (Left) and Quoted vs. Fair Fare Residuals (Right)}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.92, every node/.style={transform shape}]
+  % ---------------- LEFT CHART: SCATTER PLOT ----------------
+  \draw[rounded corners=4pt, draw=bordergray, line width=0.9pt, fill=white] (0,0) rectangle (8.1,5.4);
+  \node[font=\bfseries\scriptsize, text=navyblue] at (4.05,5.05) {Chart A: Observed Speed vs. Ambient Traffic ($v_{\text{base}}$)};
+
+  % Shaded regions inside plot area (x: 1.1 to 7.6, y: 0.8 to 4.6)
+  \fill[softblue] (1.1,2.2) -- (7.6,4.6) -- (7.6,3.2) -- (1.1,1.2) -- cycle;
+  \fill[softorange] (1.1,0.8) rectangle (7.6,2.15);
+
+  % Grid lines
+  \foreach \x/\val in {1.1/0, 2.4/10, 3.7/15, 5.0/20, 6.3/25, 7.6/30} {
+    \draw[draw=bordergray, dotted] (\x,0.8) -- (\x,4.6);
+    \node[font=\tiny, text=slate] at (\x,0.55) {\val};
+  }
+  \foreach \y/\val in {0.8/0, 1.75/10, 2.7/15, 3.65/20, 4.6/25} {
+    \draw[draw=bordergray, dotted] (1.1,\y) -- (7.6,\y);
+    \node[font=\tiny, text=slate] at (0.8,\y) {\val};
+  }
+
+  % Axes
+  \draw[->, >=stealth, thick, draw=slate] (1.1,0.8) -- (7.8,0.8);
+  \draw[->, >=stealth, thick, draw=slate] (1.1,0.8) -- (1.1,4.8);
+  \node[font=\tiny\bfseries, text=slate] at (4.35,0.22) {Ambient Road Segment Speed $v_{\text{base}}$ (km/h)};
+  \node[font=\tiny\bfseries, text=slate, rotate=90] at (0.32,2.7) {Observed $v_{\text{obs}}$ (km/h)};
+
+  % Reference parity line (Pace Index = 1.0)
+  \draw[dashed, draw=accentgreen, line width=0.9pt] (1.1,0.8) -- (7.4,4.55);
+  \node[font=\tiny\bfseries, text=accentgreen] at (5.6,4.35) {Normal Pace ($\Pi_i \approx 1.0$)};
+
+  % Plotted Normal Points (Green Circles)
+  \fill[accentgreen] (5.9,4.18) circle (2.8pt); \node[font=\tiny, right, text=navyblue] at (6.0,4.18) {TR-01};
+  \fill[accentgreen] (5.75,4.12) circle (2.8pt); \node[font=\tiny, left, text=navyblue] at (5.7,4.12) {TR-03};
+  \fill[accentblue] (3.3,2.32) circle (2.8pt); \node[font=\tiny, above, text=accentblue] at (3.3,2.38) {TR-05 (Gridlock)};
+
+  % Plotted Slow Driver Points (Red Diamonds/Circles)
+  \fill[accentred] (5.5,1.95) circle (3.0pt); \node[font=\tiny\bfseries, right, text=accentred] at (5.6,1.95) {TR-02};
+  \fill[accentred] (5.2,1.95) circle (3.0pt); \node[font=\tiny\bfseries, left, text=accentred] at (5.1,1.95) {TR-04};
+  \node[font=\tiny\bfseries, text=accentred] at (4.4,1.15) {Habitually Slow Zone ($\Pi_i < 0.60$)};
+
+  % ---------------- RIGHT CHART: GROUPED BAR CHART ----------------
+  \draw[rounded corners=4pt, draw=bordergray, line width=0.9pt, fill=white] (8.5,0) rectangle (16.8,5.4);
+  \node[font=\bfseries\scriptsize, text=navyblue] at (12.65,5.05) {Chart B: Driver Quoted Fare vs. Fair Model Fare (PKR)};
+
+  % Axes for Bar Chart
+  \draw[->, >=stealth, thick, draw=slate] (9.5,0.8) -- (16.5,0.8);
+  \draw[->, >=stealth, thick, draw=slate] (9.5,0.8) -- (9.5,4.7);
+  \node[font=\tiny\bfseries, text=slate] at (13.0,0.22) {Sampled Commuter Trips Across Lahore};
+  \node[font=\tiny\bfseries, text=slate, rotate=90] at (8.82,2.7) {Fare Amount (PKR)};
+
+  % Y-axis ticks (PKR)
+  \foreach \y/\val in {0.8/0, 1.55/150, 2.3/300, 3.05/450, 3.8/600} {
+    \draw[draw=bordergray, dotted] (9.5,\y) -- (16.3,\y);
+    \node[font=\tiny, text=slate] at (9.18,\y) {\val};
+  }
+
+  % Bars for TR-01, TR-02, TR-03, TR-04, TR-05
+  % TR-01: Quoted 300 (y=2.3), Fair 285 (y=2.22)
+  \fill[accentorange] (9.85,0.8) rectangle (10.25,2.30);
+  \fill[accentblue]   (10.28,0.8) rectangle (10.68,2.22);
+  \node[font=\tiny\bfseries, text=slate] at (10.26,0.55) {TR-01};
+
+  % TR-02: Quoted 480 (y=3.20), Fair 260 (y=2.10)
+  \fill[accentred]  (11.20,0.8) rectangle (11.60,3.20);
+  \fill[accentblue] (11.63,0.8) rectangle (12.03,2.10);
+  \node[font=\tiny\bfseries, text=accentred] at (11.61,3.42) {+220 PKR};
+  \node[font=\tiny\bfseries, text=slate] at (11.61,0.55) {TR-02};
+
+  % TR-03: Quoted 220 (y=1.90), Fair 215 (y=1.87)
+  \fill[accentorange] (12.55,0.8) rectangle (12.95,1.90);
+  \fill[accentblue]   (12.98,0.8) rectangle (13.38,1.87);
+  \node[font=\tiny\bfseries, text=slate] at (12.96,0.55) {TR-03};
+
+  % TR-04: Quoted 430 (y=2.95), Fair 235 (y=1.97)
+  \fill[accentred]  (13.90,0.8) rectangle (14.30,2.95);
+  \fill[accentblue] (14.33,0.8) rectangle (14.73,1.97);
+  \node[font=\tiny\bfseries, text=accentred] at (14.31,3.17) {+195 PKR};
+  \node[font=\tiny\bfseries, text=slate] at (14.31,0.55) {TR-04};
+
+  % TR-05: Quoted 360 (y=2.60), Fair 350 (y=2.55)
+  \fill[accentorange] (15.25,0.8) rectangle (15.65,2.60);
+  \fill[accentblue]   (15.68,0.8) rectangle (16.08,2.55);
+  \node[font=\tiny\bfseries, text=slate] at (15.66,0.55) {TR-05};
+
+  % Legend inside Right Chart
+  \fill[accentred] (10.2,4.3) rectangle (10.5,4.5);
+  \node[font=\tiny, right, text=slate] at (10.55,4.4) {Quoted Fare (Overpriced/Actual)};
+  \fill[accentblue] (13.8,4.3) rectangle (14.1,4.5);
+  \node[font=\tiny, right, text=slate] at (14.15,4.4) {Model Fair Fare};
+\end{tikzpicture}
+\end{center}
+
+Notice in Table 1 and Figure 3 how Trip \textbf{TR-05} has a slow raw speed of $13.0\text{ km/h}$, but because the Mall Road ambient baseline during that peak hour was $13.5\text{ km/h}$, our exploratory feature $\Pi_i = 0.96$ protects the driver from being mislabeled as slow. Conversely, driver \texttt{LEP-9042\#F08} in \textbf{TR-02} and \textbf{TR-04} consistently drives at nearly half the speed of clear traffic ($\Pi_i \le 0.55$) while overcharging by more than eighty percent.
+
+In the \textbf{Model} stage, which tests whether these uncovered patterns can support prediction, our group proposes a two-tier inference pipeline. First, a lightweight Convolutional Neural Network (MobileNetV3 paired with Optical Character Recognition) matches the scanned number plate and facial embedding against our historical database. Second, a Gradient Boosted Regression Tree takes route distance $d$, congestion factor $\tau$, and the driver's historical $\Pi_i$ and $\Phi_i$ distributions to output a predicted trip duration, a fair price interval in $\text{PKR}$, and a three-tier pace classification. In the \textbf{Evaluate} stage, which determines how reliable the result is, our team will validate our models on a twenty percent holdout test set of unseen commuter trips using the statistical benchmarks in Table 2 to guarantee that drivers delayed by genuine traffic jams are never unfairly penalized.
+
+\subsubheading{Table 2: Proposed Model Evaluation Metrics and Reliability Thresholds (Evaluate Stage)}
+
+\vspace{2pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|>{\columncolor{softblue}\bfseries\footnotesize}p{3.5cm}|>{\footnotesize}p{3.6cm}|>{\centering\arraybackslash\footnotesize\bfseries}p{2.5cm}|>{\footnotesize}p{5.5cm}|}
+\hline
+\rowcolor{navyblue}
+\textcolor{white}{\textbf{System Module}} & \textcolor{white}{\textbf{Validation Metric}} & \textcolor{white}{\textbf{Target Goal}} & \textcolor{white}{\textbf{Reliability Purpose in Real Deployment}} \\
+\hline
+Plate \& Face ID & Top-1 Verification Precision & $\ge 93.0\%$ & Prevents misattributing slow logs to the wrong driver. \\
+\hline
+Fair Fare Regressor & Mean Absolute Error (MAE) & $< 15.0\text{ PKR}$ & Gives students an accurate, defensible price window. \\
+\hline
+Pace Classifier & Macro $F_1$-Score & $\ge 0.88$ & Protects normal drivers caught in unexpected gridlock. \\
+\hline
+\end{tabular}
+
+Finally, in the \textbf{Deploy} stage, which establishes how the decision will be used in the real world, our group will package the validated pipeline into the RahiScan mobile app. When a student snaps a photo of a rickshaw outside the campus gate, our cloud endpoint will return the visual overlay card shown in Figure 1 within two seconds, displaying the driver's verified identity match, a color-coded Pace Reliability Badge, and the recommended fare range so the passenger can negotiate fairly or wait for a better ride.
+
+\end{document}

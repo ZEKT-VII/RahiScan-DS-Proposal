@@ -1,0 +1,14 @@
+# Virtual environment & Python cache
+.venv/
+__pycache__/
+*.pyc
+report/fonts/
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
