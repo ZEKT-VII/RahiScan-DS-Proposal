@@ -9,9 +9,9 @@
 
 | Member | Name | University Roll No. | Primary Lifecycle Stages & Responsibilities |
 | :--- | :--- | :---: | :--- |
-| **Member 1** | **Muhammad Saad Hussain** | `SU92-BSCSM-F25-260` | **Define & Collect** — Formulated the commuter case-study narrative, problem definition, curbside scanning workflow, data-collection schema, and system architecture diagram. |
-| **Member 2** | **Muhammad Khubaib** | `SU92-BSCSM-F25-300` | **Clean, Explore & Model** — Built the synthetic Lahore telemetry generator, OCR + face identity fusion rules, GPS walking-tail change-point filter, Pace Index ($\Pi$) & Fare Ratio ($\Phi$) feature engineering, and gradient-boosted models. |
-| **Member 3** | **Huzaifa** | `SU92-BSCSM-F25-408` | **Evaluate & Deploy** — Designed the week-4 temporal holdout evaluation, benchmark baselines, publication figures, in-app scorecard overlay design, privacy safeguards, and repository packaging. |
+| **Member 1** | **Muhammad Saad Hussain** | `SU92-BSCSM-F25-260` | **Define, Collect & Deploy** — Formulated the commuter case-study narrative, problem definition, curbside scanning workflow, data-collection schema, system architecture diagram, in-app deployment safeguards, and rollout roadmap. |
+| **Member 2** | **Muhammad Khubaib** | `SU92-BSCSM-F25-300` | **Clean & Explore** — Built the synthetic Lahore telemetry generator, OCR + face identity fusion rules, GPS walking-tail change-point filter, and conducted the exploratory traffic-normalisation and fare-ratio analysis. |
+| **Member 3** | **Huzaifa** | `SU92-BSCSM-F25-408` | **Model & Evaluate** — Built the two-tier identity and gradient-boosted regression/classification models, designed the week-4 temporal holdout evaluation and benchmark baselines, produced the publication figures, and maintained the GitHub repository. |
 
 ---
 
